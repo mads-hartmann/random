@@ -3,4 +3,4 @@
 
 (library (
   (name lib)
-  (libraries (containers containers.unix str))))
+  (libraries (yojson containers containers.unix str))))
