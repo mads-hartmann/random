@@ -21,3 +21,19 @@ new `new` templates.
 Create your first template:
 
     new new
+
+## Working on new
+
+You need to have the OCaml package manager ([opam][opam]) installed and a
+couple of opam packages as well.
+
+    jbuilder
+    reason
+
+Now you can compile, run and test using the following
+
+    make build
+    make run
+    make test
+
+[opam]: https://opam.ocaml.org
