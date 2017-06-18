@@ -1,4 +1,6 @@
-# New 📁
+<div style="background: linear-gradient( 135deg, #FEB692 0%, #EA5455 100%); background-clip: text; text-fill-color: transparent; text-align: center; font-weight: bold; padding: 15px; font-style: italic;">
+<h1>new</h1>
+</div>
 
 *This project is pure imagination for now. Haven't actually implemented
 anything*
