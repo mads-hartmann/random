@@ -1,0 +1,55 @@
+.container {
+  width: 50%;
+  margin: 0px auto;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: 80%;
+  }
+}
+
+
+body {
+  /*text-align: justify;*/
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+  font-family: 'Muli', sans-serif;
+
+  margin: 0px;
+  padding-top: 1.8em;
+  border: 10px solid #bb9ba4;
+  border-top: 0px;
+  border-bottom: 0px;
+  color: #3a6f53;
+}
+
+a {
+  color: #bb9ba4;
+}
+
+img {
+  padding: 2rem;
+}
+
+ul li {
+  padding: 0.5rem 0;
+}
+
+
+.title {
+  margin: 1em 0 2em 0;
+}
+
+h1 {
+  text-align: center;
+  /*text-transform: uppercase;*/
+  margin: 0px;
+  font-size: 5rem;
+  line-height: 5.5rem;
+
+}
+
+section.meta {
+  text-align: center;
+}
