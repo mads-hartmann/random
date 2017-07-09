@@ -1,0 +1,15 @@
+{
+  "name": "new",
+  "version": "0.0.1",
+  "description": "The website for new",
+  "main": "index.js",
+  "scripts": {
+    "watch": "gatsby develop"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gatsby": "^1.0.0-beta.2",
+    "gatsby-link": "^1.0.0-beta.2"
+  }
+}

@@ -2,3 +2,6 @@
 _build
 new.install
 .vscode
+
+website/.cache
+website/node_modules

@@ -1,6 +1,4 @@
-<div style="background: linear-gradient( 135deg, #FEB692 0%, #EA5455 100%); background-clip: text; text-fill-color: transparent; text-align: center; font-weight: bold; padding: 15px; font-style: italic;">
-<h1>new</h1>
-</div>
+# new
 
 *This project is pure imagination for now. Haven't actually implemented
 anything*
@@ -37,5 +35,10 @@ Now you can compile, run and test using the following
     make build
     make run
     make test
+
+## Working on the website
+
+    cd website
+    npm run watch
 
 [opam]: https://opam.ocaml.org

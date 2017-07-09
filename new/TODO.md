@@ -10,3 +10,5 @@
   all the files.
 - [ ] Create a template for a bash script
 - [ ] Create a template for a zsh completion script
+- [ ] Make it possible to echo to stdout  
+  This is interesting as it would allow editor integration.
