@@ -1,0 +1,16 @@
+{
+  "name": "hatch-reason",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "bsb",
+    "watch": "bsb -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bs-platform": "^1.7.4"
+  }
+}
