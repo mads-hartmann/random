@@ -1,0 +1,8 @@
+tell application "Emacs"
+    activate
+    tell application "System Events"
+        tell process "Emacs"
+            click menu item "Merge All Windows" of menu "Window" of menu bar 1
+        end tell
+    end tell
+end tell
