@@ -1,0 +1,8 @@
+version: "2"
+
+services:
+  web:
+    env_file: ./env/production.env
+    # when running in production mode we use gunicorn to
+    # run a few more workers.
+    command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app

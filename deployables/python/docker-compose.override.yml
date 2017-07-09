@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+  web:
+    env_file: ./env/development.env
+    # Mount ./web over /usr/src/app so changes to the local python files
+    # can be hot-reloaded without restarting the docker-container.
+    volumes:
+      - ./web:/usr/deployables/web
+
+  nginx:
+    # Mount ./nginx/static folder as /www/static to be able to change static
+    # files without restarting the docker-container
+    volumes:
+      - ./nginx/static:/www/static

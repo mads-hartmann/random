@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+  web:
+    build: ./web
+    restart: always
+    expose:
+      - "8000"
+    links:
+      - postgres:postgres
+    # When working on the flask application locally we prefer to run
+    # the app directly as this will allow us to enable hot-reloading,
+    # better stack traces, etc.
+    command: /usr/local/bin/python /usr/deployables/web/src/app.py
+
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - "80:80"
+    links:
+      - web:web # Link to web and add it as web to the dns
+
+  postgres:
+    build: ./db
+    restart: always
+    volumes:
+      - /var/lib/postgresql
+    ports:
+      - "5432:5432"

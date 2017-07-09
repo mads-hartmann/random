@@ -1,0 +1,15 @@
+#+STARTUP: indent
+I'm basing my things very much on [[https://realpython.com/blog/python/dockerizing-flask-with-compose-and-machine-from-localhost-to-the-cloud/][this article]].
+
+* Next steps
+** TODO Postgres
+*** TODO How to facilitate integration testing
+Create a python Messages module that can store and fetch messages. Create a small
+integration test for it that stores and fetches a message
+** TODO How to deal with venv not being exposed to editor?
+Perhaps you need to install it separately? That feels a bit clunky
+** TODO Linting?
+** TODO Logging
+Just docker-machine logs? (the new docker-compose file has a logging key under services)
+** TODO Error reporting
+** TODO Performance measuring
