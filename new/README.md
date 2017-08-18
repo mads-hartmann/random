@@ -3,24 +3,40 @@
 *This project is pure imagination for now. Haven't actually implemented
 anything*
 
-A CLI for creating new things. What kind of things? Anything that lives in
-files.
+`new` is a tool for creating and expanding templates for things. What kind of
+things? Anything that lives in folders and files.
+
+## Usage
+
+```sh
+new <template> [arg=value]*
+new -e | --edit <template>
+new --list
+```
+
+## Creating templates
+
+The purpose of `new` is to ...
+
+You can create a new template, or edit an existing one, using the `-e` or `--edit`
+option to `new` like so
+
+```sh
+new --edit bash-script
+```
+
+By default `new` stores it's templates in `~/.new/templates/`, however you can
+change that if you want to, see the [configuration](#configuration) section.
+
+I'm a huge fan of [dotfiles][dotfiles] so I highly recommend add `~/.new` to
+your dotfiles.
 
 ## Installation
 
     brew install new
 
-## Getting Started
+## Configuration
 
-`new` reads it's configuration from `~/.new/config.yml`. By default `new` stores
-it's templates in `~/.new/templates/`.
-
-`new` only ships with a single template. That template is a template for creating
-new `new` templates.
-
-Create your first template:
-
-    new new
 
 ## Working on new
 
@@ -36,9 +52,5 @@ Now you can compile, run and test using the following
     make run
     make test
 
-## Working on the website
-
-    cd website
-    npm run watch
-
 [opam]: https://opam.ocaml.org
+[dotfiles]: http://dotfiles.github.io/
