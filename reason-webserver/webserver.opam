@@ -1,0 +1,17 @@
+opam-version: "2.0"
+name: "webserver"
+version: "0.0.1"
+maintainer: "Mads Hartmann <mads379@gmail.com>"
+authors: ["Mads Hartmann <mads379@gmail.com>"]
+homepage: "https://github.com/mads-hartmann/random"
+bug-reports: "https://github.com/mads-hartmann/random/issues"
+dev-repo: "git@github.com:mads-hartmann/random.git"
+license: ["ISC"]
+tags: []
+build: [["jbuilder" "build" "-p" name "-j" jobs]]
+build-test: [["jbuilder" "runtest" "-p" name "-j" jobs]]
+depends: [
+  "jbuilder" {build}
+  "reason" {>= "2.0.0"} {build}
+  "containers"
+]
