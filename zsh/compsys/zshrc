@@ -1,0 +1,16 @@
+# Minimal zshrc file for enabling the completion system
+#
+# zsh --no-rcs
+# source zshrc
+
+fpath=($fpath completions)
+
+autoload -U compinit
+compinit -D # don't use .zcompdump
+
+
+function _what {
+    echo "WHAT"
+}
+
+compdef _what what

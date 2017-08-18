@@ -1,0 +1,5 @@
+#compdef _foobar foobar
+
+function _foobar {
+    echo "FOOBAR"
+}
