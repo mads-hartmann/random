@@ -1,0 +1,10 @@
+opam-version: "2.0"
+name: "hello"
+version: "0.0.1"
+build: [["jbuilder" "build" "-p" name "-j" jobs]]
+build-test: [["jbuilder" "runtest" "-p" name "-j" jobs]]
+depends: [
+  "jbuilder" {build}
+  "reason" {>= "2.0.0"} {build}
+  "containers"
+]
