@@ -1,0 +1,1 @@
+let text = "Hi there";
