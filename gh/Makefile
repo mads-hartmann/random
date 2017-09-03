@@ -1,14 +1,18 @@
-reason_files := \
-	$(wildcard *.re)
+sources := \
+	$(wildcard gh/*.re)
 
-build: $(reason_files) jbuild
-	jbuilder build main.exe
+executable := \
+	_build/install/default/bin/gh
+
+build: $(executable)
 
 distclean clean:
 	jbuilder clean
 
 run: build
-	_build/default/main.exe
+	$(executable) pullrequests
 
-install:
+install: build
+
+$(executable): $(sources) gh/jbuild
 	jbuilder build @install

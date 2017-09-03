@@ -9,6 +9,13 @@ opam install jbuilder core yojson ssl tls cohttp async cohttp-lwt cohttp-lwt-uni
 make run
 ```
 
+## Configuration
+
+The CLI is configured through environment variables.
+
+- `GITHUB_OAUTH_TOKEN`: You can generate a token [here][gh-token]. It just needs
+  access to your user data.
+
 ## Installing
 
 ```sh
@@ -21,3 +28,5 @@ opam pin add gh .
 opam uninstall gh
 opam pin remove gh
 ```
+
+[gh-token]: https://github.com/settings/tokens
