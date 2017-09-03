@@ -21,7 +21,7 @@ let run () => {
   | (Result.Ok config, Args.Commands.PullRequests) =>
     switch (Lwt_main.run (Github.pullrequests config)) {
     | Core.Result.Error err => print_endline (Errors.to_str err)
-    | Core.Result.Ok pullrequests => print_endline "Found pull request"
+    | Core.Result.Ok pullrequests => Print.pullrequests pullrequests
     };
     exit 0
   }

@@ -59,9 +59,7 @@ let parse (json: Yojson.Basic.json) :list PullRequest.t =>
     |> List.map (fun x => PullRequest.of_json (member "node" x))
   );
 
-type x = Lwt.t (Core.Result.t (list PullRequest.t) Errors.t);
-
-let pullrequests config :x => {
+let pullrequests config :Lwt.t (Core.Result.t (list PullRequest.t) Errors.t) => {
   let headers =
     Header.init_with "Authorization" ("token " ^ Config.(config.access_token))
     |> (fun h => Header.add h "User-Agent" "github-pull-requests")
