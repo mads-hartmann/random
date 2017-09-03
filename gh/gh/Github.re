@@ -7,19 +7,30 @@ open Cohttp_lwt_unix;
 module PullRequest = {
   type t = {
     title: string,
-    reviewer: string,
+    url: string,
+    updated_at: Core.Time.t,
+    reviewers: list string,
     author: string
   };
   let of_json (json: Yojson.Basic.json) :t => {
     open Yojson.Basic.Util;
     let title = json |> member "title" |> to_string;
-    {title, reviewer: "WAT", author: "TEST"}
+    let url = json |> member "url" |> to_string;
+    let updated_at =
+      json |> member "updatedAt" |> to_string |> Core.Time.of_string;
+    let author = json |> member "author" |> member "login" |> to_string;
+    let reviewers =
+      json
+      |> member "reviewRequests"
+      |> member "nodes"
+      |> to_list
+      |> List.map (fun n => member "reviewer" n |> member "login" |> to_string);
+    {title, url, reviewers, updated_at, author}
   };
 };
 
-let query username =>
-  Printf.sprintf
-    {|{
+let query =
+  Printf.sprintf {|{
   user(login:\"%s\") {
     pullRequests(
       first:100,
@@ -32,6 +43,11 @@ let query username =>
       edges {
         node {
           title
+          url
+          author {
+            login
+          }
+          updatedAt
           reviewRequests(first:100){
             nodes {
               reviewer {
@@ -39,16 +55,11 @@ let query username =>
               }
             }
           }
-          author {
-            login
-          }
-          id
         }
       }
     }
   }
-}|}
-    username;
+}|};
 
 let parse (json: Yojson.Basic.json) :list PullRequest.t =>
   Yojson.Basic.Util.(
