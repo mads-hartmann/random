@@ -15,6 +15,7 @@ The CLI is configured through environment variables.
 
 - `GITHUB_OAUTH_TOKEN`: You can generate a token [here][gh-token]. It just needs
   access to your user data.
+- `GITHUB_USERNAME`: The Github username to check pull requests for.
 
 ## Installing
 

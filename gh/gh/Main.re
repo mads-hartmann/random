@@ -1,5 +1,9 @@
 let usage = {|
-Usage: gh <command>
+gh.
+
+Usage:
+  gh help
+  gh pullrequests
 
 Options:
   -h --help         Shows this info
@@ -16,11 +20,11 @@ let run () => {
     exit 0
   | (_, Args.Commands.Error err)
   | (Result.Error err, _) =>
-    print_endline (Errors.to_str err);
+    Print.error err;
     exit 1
   | (Result.Ok config, Args.Commands.PullRequests) =>
     switch (Lwt_main.run (Github.pullrequests config)) {
-    | Core.Result.Error err => print_endline (Errors.to_str err)
+    | Core.Result.Error err => Print.error err
     | Core.Result.Ok pullrequests => Print.pullrequests pullrequests
     };
     exit 0

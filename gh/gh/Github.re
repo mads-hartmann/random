@@ -17,9 +17,10 @@ module PullRequest = {
   };
 };
 
-/* TODO: Figure out how to use a variable here. */
-let query = {|{
-  user(login:\"mads-hartmann\") {
+let query username =>
+  Printf.sprintf
+    {|{
+  user(login:\"%s\") {
     pullRequests(
       first:100,
       states: [OPEN],
@@ -46,7 +47,8 @@ let query = {|{
       }
     }
   }
-}|};
+}|}
+    username;
 
 let parse (json: Yojson.Basic.json) :list PullRequest.t =>
   Yojson.Basic.Util.(
@@ -65,7 +67,10 @@ let pullrequests config :Lwt.t (Core.Result.t (list PullRequest.t) Errors.t) => 
     |> (fun h => Header.add h "User-Agent" "github-pull-requests")
     |> (fun h => Header.add h "Content-Type" "application/json");
   let uri = Uri.of_string "https://api.github.com/graphql";
-  let req = Cohttp_lwt_body.of_string (GraphQL.Query.of_string query);
+  let req =
+    Cohttp_lwt_body.of_string (
+      GraphQL.Query.of_string (query Config.(config.username))
+    );
   Client.post ::headers body::req uri
   >>= (
     fun (resp, body) => {

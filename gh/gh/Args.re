@@ -7,8 +7,10 @@ module Commands = {
 
 let parse args =>
   switch args {
-  | [] => Commands.Help
-  | ["help"] => Commands.Help
+  | []
+  | ["help"]
+  | ["-h"]
+  | ["--help"] => Commands.Help
   | ["pullrequests"] => Commands.PullRequests
   | [unknown, ..._] => Commands.Error (Errors.UnknownCommand unknown)
   };
