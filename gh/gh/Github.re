@@ -29,50 +29,90 @@ module PullRequest = {
   };
 };
 
+type t = {
+  yours: list PullRequest.t,
+  assigned: list PullRequest.t,
+  against_your_repos: list PullRequest.t
+};
+
 let query =
-  Printf.sprintf {|{
-  user(login:\"%s\") {
-    pullRequests(
-      first:100,
-      states: [OPEN],
-      orderBy: {
-        field:UPDATED_AT,
-        direction:DESC
-      }
-    ) {
-      edges {
-        node {
-          title
-          url
-          author {
+  Printf.sprintf {|
+    fragment PullRequestFields on PullRequest {
+      title
+      updatedAt
+      url
+      reviewRequests(first: 5) {
+        nodes {
+          reviewer {
             login
           }
-          updatedAt
-          reviewRequests(first:100){
-            nodes {
-              reviewer {
-                login
+        }
+      }
+      author {
+        login
+      }
+      id
+    }
+
+    query pullrequests {
+      user(login: \"%s\") {
+        repositories(first: 100) {
+          nodes {
+            pullRequests(first:50, states: [OPEN]) {
+              nodes {
+                ...PullRequestFields
               }
+            }
+          }
+        }
+        pullRequests(first: 50, states: [OPEN], orderBy: {field: UPDATED_AT, direction: DESC}) {
+          edges {
+            node {
+              ...PullRequestFields
             }
           }
         }
       }
     }
-  }
-}|};
+|};
 
-let parse (json: Yojson.Basic.json) :list PullRequest.t =>
-  Yojson.Basic.Util.(
-    json
-    |> member "data"
-    |> member "user"
+let parse (json: Yojson.Basic.json) :t => {
+  open Yojson.Basic.Util;
+  let user = json |> member "data" |> member "user";
+  let yours =
+    user
     |> member "pullRequests"
     |> member "edges"
     |> to_list
-    |> List.map (fun x => PullRequest.of_json (member "node" x))
-  );
+    |> List.map (fun x => PullRequest.of_json (member "node" x));
+  let against_your_repos =
+    List.concat (
+      user
+      |> member "repositories"
+      |> member "nodes"
+      |> to_list
+      |> List.map (
+           fun x =>
+             member "pullRequests" x
+             |> member "nodes"
+             |> to_list
+             |> List.filter (
+                  fun node =>
+                    switch node {
+                    | `Null => false
+                    | _ => true
+                    }
+                )
+             |> List.map PullRequest.of_json
+         )
+    )
+    |> List.sort (
+         fun a b => PullRequest.(Core.Time.ascending a.updated_at b.updated_at)
+       );
+  {yours, against_your_repos, assigned: []}
+};
 
-let pullrequests config :Lwt.t (Core.Result.t (list PullRequest.t) Errors.t) => {
+let pullrequests config :Lwt.t (Core.Result.t t Errors.t) => {
   let headers =
     Header.init_with "Authorization" ("token " ^ Config.(config.access_token))
     |> (fun h => Header.add h "User-Agent" "github-pull-requests")

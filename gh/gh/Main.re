@@ -25,7 +25,7 @@ let run () => {
   | (Result.Ok config, Args.Commands.PullRequests) =>
     switch (Lwt_main.run (Github.pullrequests config)) {
     | Core.Result.Error err => Print.error err
-    | Core.Result.Ok pullrequests => Print.pullrequests pullrequests
+    | Core.Result.Ok state => Print.state state
     };
     exit 0
   }
