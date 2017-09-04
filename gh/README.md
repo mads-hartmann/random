@@ -2,13 +2,6 @@
 
 Tiny CLI to help you keep track of your current pull request responsibilities.
 
-```sh
-opam switch install 4.04.0
-opam pin add reason 1.13.7
-opam install jbuilder core yojson ssl tls cohttp async cohttp-lwt cohttp-lwt-unix lwt_ssl
-make run
-```
-
 ## Configuration
 
 The CLI is configured through environment variables.
@@ -17,17 +10,27 @@ The CLI is configured through environment variables.
   access to your user data.
 - `GITHUB_USERNAME`: The Github username to check pull requests for.
 
+## Development
+
+```sh
+opam switch install 4.04.1
+opam pin add reason 1.13.7
+opam install ssl tls
+opam install jbuilder
+opam install core yojson async lwt lwt_ssl cohttp cohttp-lwt cohttp-lwt-unix
+make run
+```
+
 ## Installing
 
 ```sh
-opam pin add gh .
+make install
 ```
 
 ## Uninstalling
 
 ```sh
-opam uninstall gh
-opam pin remove gh
+make uninstall
 ```
 
 [gh-token]: https://github.com/settings/tokens

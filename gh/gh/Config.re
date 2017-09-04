@@ -21,7 +21,7 @@ let from_env () :Result.t t Errors.t => {
     Result.all [get_env "GITHUB_OAUTH_TOKEN", get_env "GITHUB_USERNAME"];
   Base.Result.bind
     environment
-    (
+    f::(
       fun envs =>
         switch envs {
         | [token, username] => Result.Ok {access_token: token, username}

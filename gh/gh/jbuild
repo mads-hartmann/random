@@ -1,9 +1,15 @@
 (jbuild_version 1)
 
 (executable
- ((name main)
-  (libraries (core async str yojson cohttp cohttp.lwt))))
+ ((public_name gh)
+  (name Main)
 
-(install
-  ((section bin)
-    (files ((main.exe as gh)))))
+  (libraries (
+    core
+    async
+    str
+    yojson
+    cohttp
+    cohttp.lwt
+  ))
+ ))

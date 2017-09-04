@@ -1,4 +1,5 @@
 sources := \
+	gh/jbuild \
 	$(wildcard gh/*.re)
 
 executable := \
@@ -6,13 +7,17 @@ executable := \
 
 build: $(executable)
 
-distclean clean:
+clean:
 	jbuilder clean
 
 run: build
 	$(executable) pullrequests
 
 install: build
+	@jbuilder install
 
-$(executable): $(sources) gh/jbuild
-	jbuilder build @install
+uninstall distclean:
+	@jbuilder uninstall
+
+$(executable): $(sources)
+	jbuilder build --dev
