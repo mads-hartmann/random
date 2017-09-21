@@ -1,0 +1,6 @@
+(jbuild_version 1)
+
+(executable
+ ((public_name hello)
+  (name hello)
+  (modes (byte))))

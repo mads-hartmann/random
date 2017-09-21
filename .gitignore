@@ -1,2 +1,6 @@
 .DS_Store
 .vscode
+
+**/_build
+.merlin
+*.install
