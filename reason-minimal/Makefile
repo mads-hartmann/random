@@ -2,7 +2,7 @@ reason_files := \
 	$(wildcard *.re)
 
 build: $(reason_files) jbuild
-	jbuilder build main.exe
+	@jbuilder build
 
 clean:
 	jbuilder clean
