@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Containers</title>
+  </head>
+  <body>
+    <h1>Electron 💬 Docker</h1>
+    <script>
+    const docker = require('./docker')
+
+    const ul = document.createElement("ul");
+    docker.containers().then(containers => {
+      containers.forEach(container => {
+        const li = document.createElement("li");
+        li.append(container.name)
+        li.append(container.state)
+        ul.appendChild(li)
+      })
+      document.body.appendChild(ul);
+    });
+    </script>
+  </body>
+
+</html>
