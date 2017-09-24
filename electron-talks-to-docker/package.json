@@ -8,5 +8,8 @@
   },
   "devDependencies": {
     "electron": "~1.6.2"
+  },
+  "dependencies": {
+    "express": "^4.15.4"
   }
 }

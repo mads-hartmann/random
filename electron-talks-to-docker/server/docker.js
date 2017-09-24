@@ -1,5 +1,8 @@
 const http = require('http');
 
+/**
+ * Perform a request over a unix to the Docker daemon.
+ */
 function request(path, method) {
     var method = method ? method : 'GET';
     const req = {
@@ -29,6 +32,9 @@ function request(path, method) {
     });
 }
 
+/**
+ * List all existing containers.
+ */
 function containers() {
     return request('/containers/json?all=1')
         .then((response) => {

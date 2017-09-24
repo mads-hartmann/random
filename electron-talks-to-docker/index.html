@@ -7,10 +7,9 @@
   <body>
     <h1>Electron 💬 Docker</h1>
     <script>
-    const docker = require('./docker')
 
-    const ul = document.createElement("ul");
-    docker.containers().then(containers => {
+    function render(containers) {
+      const ul = document.createElement("ul");
       containers.forEach(container => {
         const li = document.createElement("li");
         li.append(container.name)
@@ -18,7 +17,13 @@
         ul.appendChild(li)
       })
       document.body.appendChild(ul);
-    });
+    }
+
+    fetch('http://localhost:9000/')
+      .then((response) => response.json())
+      .then(render)
+      .catch(e => console.error(e))
+
     </script>
   </body>
 
