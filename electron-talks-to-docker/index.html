@@ -6,25 +6,8 @@
   </head>
   <body>
     <h1>Electron 💬 Docker</h1>
-    <script>
-
-    function render(containers) {
-      const ul = document.createElement("ul");
-      containers.forEach(container => {
-        const li = document.createElement("li");
-        li.append(container.name)
-        li.append(container.state)
-        ul.appendChild(li)
-      })
-      document.body.appendChild(ul);
-    }
-
-    fetch('http://localhost:9000/')
-      .then((response) => response.json())
-      .then(render)
-      .catch(e => console.error(e))
-
-    </script>
+    <div id="root"></div>
+    <script type="text/javascript" src="http://localhost:9000/webpack/bundle.js"></script>
   </body>
 
 </html>
