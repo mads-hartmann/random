@@ -1,6 +1,4 @@
-const electron = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
+const {app, BrowserWindow, Tray, nativeImage} = require('electron')
 
 const path = require('path')
 const url = require('url')
@@ -9,12 +7,11 @@ const server = require('./server/server')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
+let tray
 let mainWindow
+let menubarWindow
 
-function createWindow () {
-
-  server.start(9000)
-
+const createMainWindow = () => {
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
   mainWindow.loadURL(url.format({
@@ -31,10 +28,63 @@ function createWindow () {
   })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+const createMenubarWindow = () => {
+  // Make the popup window for the menubar
+ menubarWindow = new BrowserWindow({
+   width: 300,
+   height: 350,
+   show: false,
+   frame: false,
+   resizable: false,
+ })
+
+ menubarWindow.loadURL(`file://${path.join(__dirname, 'menubar-index.html')}`)
+
+ menubarWindow.on('blur', () => {
+   if(!menubarWindow.webContents.isDevToolsOpened()) {
+     menubarWindow.hide()
+   }
+ })
+}
+
+const toggleWindow = (window) => {
+  if (window.isVisible()) {
+    window.hide()
+  } else {
+    const trayPos = tray.getBounds()
+  const windowPos = window.getBounds()
+  let x, y = 0
+  if (process.platform == 'darwin') {
+    x = Math.round(trayPos.x + (trayPos.width / 2) - (windowPos.width / 2))
+    y = Math.round(trayPos.y + trayPos.height)
+  } else {
+    x = Math.round(trayPos.x + (trayPos.width / 2) - (windowPos.width / 2))
+    y = Math.round(trayPos.y + trayPos.height * 10)
+  }
+
+  window.setPosition(x, y, false)
+  window.show()
+  window.focus()
+  }
+}
+
+const createTrayIcon = () => {
+  const icon = nativeImage.createFromPath(path.join(__dirname, 'assets', 'icon.png'))
+  tray = new Tray(icon)
+  tray.on('click', function(event) {
+    toggleWindow(menubarWindow)
+    if (menubarWindow.isVisible() && process.defaultApp && event.metaKey) {
+      menubarWindow.openDevTools({mode: 'detach'})
+    }
+  })
+}
+
+app.on('ready', () => {
+  server.start(9000)
+  createMainWindow()
+  createMenubarWindow()
+  createTrayIcon()
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -52,6 +102,3 @@ app.on('activate', function () {
     createWindow()
   }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
