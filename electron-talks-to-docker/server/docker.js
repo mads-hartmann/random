@@ -1,5 +1,8 @@
 const http = require('http');
 
+// This uses the HTTP API provided by Docker engine.
+// https://docs.docker.com/engine/api/v1.31/
+
 /**
  * Perform a request over a unix to the Docker daemon.
  */

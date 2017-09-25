@@ -19,6 +19,30 @@ server.get('/', (req, res) => {
         .catch(e => console.error(e));
 });
 
+server.get('/remove/:container_id', (req, res) => {
+    docker.request(`/containers/${req.params.container_id}?v=1`, 'DELETE')
+        .then(response => {
+            res.send('OK');
+        })
+        .catch(e => console.log(e))
+});
+
+server.get('/start/:container_id', (req, res) => {
+    docker.request(`/containers/${req.params.container_id}/start`, 'POST')
+        .then(response => {
+            res.send('OK');
+        })
+        .catch(e => console.log(e))
+});
+
+server.get('/stop/:container_id', (req, res) => {
+    docker.request(`/containers/${req.params.container_id}/stop`, 'POST')
+        .then(response => {
+            res.send('OK');
+        })
+        .catch(e => console.log(e))
+});
+
 function start(port) {
   server.listen(port, () => {
       console.log(`Started node-server on ${port}`);
