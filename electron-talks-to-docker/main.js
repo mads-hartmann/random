@@ -12,7 +12,12 @@ let mainWindow
 let menubarWindow
 
 const createMainWindow = () => {
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    minHeight: 600,
+    minWidth: 600
+  })
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),

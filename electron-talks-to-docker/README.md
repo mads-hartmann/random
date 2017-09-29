@@ -15,3 +15,9 @@ The express server also contains a route that uses the webpack middleware to
 compile the client javascript bundle on the fly. Again, there are multiple
 ways to achieve the same result but bundling the client assets on the fly is
 closer to where we want to take this application in the future ☺️
+
+## Credit
+
+The lovely icon set is [Feather Icons][icons] made by made by Cole Bemis .
+
+[icons]: http://feathericons.com/

@@ -19,6 +19,8 @@ server.get('/', (req, res) => {
         .catch(e => console.error(e));
 });
 
+server.use('/assets', express.static('assets'));
+
 server.get('/remove/:container_id', (req, res) => {
     docker.request(`/containers/${req.params.container_id}?v=1`, 'DELETE')
         .then(response => {
