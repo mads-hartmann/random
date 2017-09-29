@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 
 const styles = {
   nav: {
@@ -47,7 +47,7 @@ const styles = {
       fontWeight: 'bold'
     }
   }
-}
+};
 
 export default () => {
   return (
@@ -59,12 +59,31 @@ export default () => {
       </header>
       <ul style={styles.ul}>
         <li>
-        <img src="http://localhost:9000/assets/feathericons/server.svg" style={styles.img} />
-        <NavLink exact activeStyle={styles.link.active} style={styles.link.style} to="/">Manage Containers</NavLink>
+          <img
+            src="http://localhost:9000/assets/feathericons/server.svg"
+            style={styles.img}
+          />
+          <NavLink
+            exact
+            activeStyle={styles.link.active}
+            style={styles.link.style}
+            to="/"
+          >
+            Manage Containers
+          </NavLink>
         </li>
         <li>
-          <img src="http://localhost:9000/assets/feathericons/heart.svg" style={styles.img}/>
-          <NavLink activeStyle={styles.link.active} style={styles.link.style} to="/about">About</NavLink>
+          <img
+            src="http://localhost:9000/assets/feathericons/heart.svg"
+            style={styles.img}
+          />
+          <NavLink
+            activeStyle={styles.link.active}
+            style={styles.link.style}
+            to="/about"
+          >
+            About
+          </NavLink>
         </li>
       </ul>
     </nav>
