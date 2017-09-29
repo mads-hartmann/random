@@ -6,4 +6,4 @@ export default {
   colorBorder: 'hsl(0,0%,88%)',
   colorBg: 'hsl(0,0%,96%)',
   colorAccent: 'black'
-}
+};

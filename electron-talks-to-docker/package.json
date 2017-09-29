@@ -2,7 +2,7 @@
   "name": "electron-talks-docker",
   "version": "1.0.0",
   "description": "A tiny electron app that talks to Docker over a unix socket",
-  "main": "main.js",
+  "main": "electron/main.js",
   "scripts": {
     "start": "electron ."
   },
@@ -13,8 +13,10 @@
     "babel-preset-react": "^6.24.1",
     "electron": "~1.6.2",
     "express": "^4.15.4",
+    "nodemon": "^1.12.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2",
     "webpack": "^3.6.0",
     "webpack-dev-middleware": "^1.12.0"
   }

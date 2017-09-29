@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Containers</title>
+    <title>Developer Dashboard</title>
     <style media="screen">
     body, html, #root {
       width: 100%;
@@ -22,6 +22,28 @@
     h1 {
       font-size: 1.5em;
       font-weight: 600;
+    }
+    button {
+      outline: none;
+    }
+    @-webkit-keyframes rotating {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes rotating {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    .rotating {
+      animation: rotating 1.5s linear infinite;
     }
     </style>
   </head>

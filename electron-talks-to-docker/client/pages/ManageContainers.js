@@ -1,9 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Sidebar from './sidebar'
-import ContainerList from './ContainerList'
-import Section from './layout/Section'
+import ContainerList from '../ContainerList'
+import Section from '../layout/Section'
 
 export default () => {
   return (
