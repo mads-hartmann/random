@@ -1,48 +1,49 @@
-import React from 'react';
+import React from "react";
 
-import colors from './constants/colors';
+import colors from "../constants/colors";
+import ContainerModal from "./ContainerModal";
 
 const color = state => {
   switch (state) {
-    case 'exited':
-      return 'grey';
-    case 'running':
-      return '#52c352';
+    case "exited":
+      return "grey";
+    case "running":
+      return "#52c352";
     default:
-      return 'white';
+      return "white";
   }
 };
 
 const styles = {
   button: {
-    background: 'none',
-    border: 'none'
+    background: "none",
+    border: "none"
   },
   img: {
-    width: '20px',
-    height: '20px',
-    verticalAlign: 'middle',
-    marginRight: '.5em'
+    width: "20px",
+    height: "20px",
+    verticalAlign: "middle",
+    marginRight: ".5em"
   },
   loader: {
-    width: '20px',
-    height: '20px',
-    verticalAlign: 'middle',
-    marginRight: '.5em'
+    width: "20px",
+    height: "20px",
+    verticalAlign: "middle",
+    marginRight: ".5em"
   },
   container: {
     name: {
-      display: 'block',
-      fontWeight: 'bold'
+      display: "block",
+      fontWeight: "bold"
     },
     image: {
-      display: 'block',
-      lineHeight: '10px',
-      fontSize: '12px'
+      display: "block",
+      lineHeight: "10px",
+      fontSize: "12px"
     },
     status: {
-      paddingTop: '5px',
-      display: 'block'
+      paddingTop: "5px",
+      display: "block"
     }
   }
 };
@@ -52,13 +53,15 @@ export default class Container extends React.Component {
     super(props);
     this.state = {
       container: props.container,
-      loading: false
+      loading: false,
+      showModal: false
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.state.container.state !== nextProps.container.state) {
       this.setState({
+        ...this.state,
         container: nextProps.container,
         loading: false
       });
@@ -95,11 +98,20 @@ export default class Container extends React.Component {
     ).catch(e => console.error(e));
   }
 
-  render() {
-    const { container, loading } = this.state;
+  toggleModal() {
+    console.log("toggling");
+    this.setState({
+      ...this.state,
+      showModal: !this.state.showModal
+    });
+  }
 
-    const canStart = !loading && container.state == 'exited';
-    const canPause = !loading && container.state == 'running';
+  render() {
+    const { container, loading, showModal } = this.state;
+
+    const canStart =
+      !loading && (container.state == "exited" || container.state == "created");
+    const canPause = !loading && container.state == "running";
     const canDelete = !loading;
 
     return (
@@ -107,10 +119,10 @@ export default class Container extends React.Component {
         style={{
           border: colors.border,
           borderLeft: `5px solid ${color(container.state)}`,
-          margin: '2px',
-          padding: '10px',
-          display: 'flex',
-          justifyContent: 'space-between'
+          margin: "2px",
+          padding: "10px",
+          display: "flex",
+          justifyContent: "space-between"
         }}
       >
         <div>
@@ -125,6 +137,14 @@ export default class Container extends React.Component {
               className="rotating"
               style={styles.loader}
             />
+          ) : null}
+          {!loading ? (
+            <button style={styles.button} onClick={() => this.toggleModal()}>
+              <img
+                src="http://localhost:9000/assets/feathericons/activity.svg"
+                style={styles.img}
+              />
+            </button>
           ) : null}
           {canDelete ? (
             <button style={styles.button} onClick={() => this.kill()}>
@@ -151,6 +171,11 @@ export default class Container extends React.Component {
             </button>
           ) : null}
         </div>
+        <ContainerModal
+          hidden={!showModal}
+          container={container}
+          onHide={() => this.toggleModal()}
+        />
       </div>
     );
   }

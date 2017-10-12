@@ -1,50 +1,50 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 const styles = {
   nav: {
     flexGrow: 0,
-    width: '220px',
-    minWidth: '220px',
-    overflowX: 'hidden',
-    overflowY: 'auto',
-    color: 'hsl(0,0%,44%)',
-    borderRight: '1px solid hsl(0,0%,88%)',
-    backgroundColor: 'hsl(0,0%,96%)'
+    width: "220px",
+    minWidth: "220px",
+    overflowX: "hidden",
+    overflowY: "auto",
+    color: "hsl(0,0%,44%)",
+    borderRight: "1px solid hsl(0,0%,88%)",
+    backgroundColor: "hsl(0,0%,96%)"
   },
   header: {
-    position: 'relative',
-    padding: '2rem',
-    marginBottom: '1rem',
-    borderBottom: '1px solid hsl(0,0%,88%)'
+    position: "relative",
+    padding: "2rem",
+    marginBottom: "1rem",
+    borderBottom: "1px solid hsl(0,0%,88%)"
   },
   h1: {
-    textTransform: 'uppercase',
-    fontWeight: '300',
-    lineHeight: '1',
-    margin: '0'
+    textTransform: "uppercase",
+    fontWeight: "300",
+    lineHeight: "1",
+    margin: "0"
   },
   ul: {
-    listStyle: 'none',
-    margin: '0 0 0 4px',
-    padding: '0 2em'
+    listStyle: "none",
+    margin: "0 0 0 4px",
+    padding: "0 2em"
   },
   img: {
-    width: '16px',
-    height: '16px',
-    verticalAlign: 'middle',
-    marginRight: '.5em'
+    width: "16px",
+    height: "16px",
+    verticalAlign: "middle",
+    marginRight: ".5em"
   },
   link: {
     style: {
-      color: 'inherit',
-      textTransform: 'uppercase',
-      fontSize: '11px',
-      lineHeight: '24px',
-      textDecoration: 'none'
+      color: "inherit",
+      textTransform: "uppercase",
+      fontSize: "11px",
+      lineHeight: "24px",
+      textDecoration: "none"
     },
     active: {
-      fontWeight: 'bold'
+      fontWeight: "bold"
     }
   }
 };

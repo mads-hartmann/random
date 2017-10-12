@@ -1,27 +1,32 @@
-const http = require('http');
-
 // This uses the HTTP API provided by Docker engine.
 // https://docs.docker.com/engine/api/v1.31/
 
+const http = require("http");
+const querystring = require("querystring");
+
 /**
- * Perform a request over a unix to the Docker daemon.
+ * Perform a request over a unix socket to the Docker daemon.
  */
-function request(path, method) {
-  var method = method ? method : 'GET';
-  const req = {
-    method: method,
-    protocol: 'http:',
-    socketPath: '/var/run/docker.sock',
-    path: path
+function request(path, method, body) {
+  const payload = JSON.stringify(body || {});
+  const options = {
+    method: method ? method : "GET",
+    protocol: "http:",
+    socketPath: "/var/run/docker.sock",
+    path: path,
+    headers: {
+      "Content-Type": "application/json",
+      "Content-Length": Buffer.byteLength(payload)
+    }
   };
   return new Promise((resolve, reject) => {
-    http.get(req, res => {
-      res.setEncoding('utf8');
-      let rawData = '';
-      res.on('data', chunk => (rawData += chunk));
-      res.on('end', () => {
+    const req = http.request(options, res => {
+      res.setEncoding("utf8");
+      let rawData = "";
+      res.on("data", chunk => (rawData += chunk));
+      res.on("end", () => {
         try {
-          if (rawData !== '') {
+          if (rawData !== "") {
             let parsedData = JSON.parse(rawData);
             resolve(parsedData);
           } else {
@@ -32,16 +37,24 @@ function request(path, method) {
         }
       });
     });
+    req.end(payload);
   });
+}
+
+/**
+ * Start a container
+ */
+function start(containerId) {
+  return request(`/containers/${containerId}/start`, "POST");
 }
 
 /**
  * List all existing containers.
  */
 function containers() {
-  return request('/containers/json?all=1').then(response => {
+  return request("/containers/json?all=1").then(response => {
     return response.map(container => {
-      const name = container.Names.join(' ').replace('/', '');
+      const name = container.Names.join(" ").replace("/", "");
       return {
         name: name,
         container_id: container.Id,
@@ -60,5 +73,6 @@ function containers() {
 
 module.exports = {
   containers,
-  request
+  request,
+  start
 };

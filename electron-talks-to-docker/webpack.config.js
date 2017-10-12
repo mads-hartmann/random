@@ -19,6 +19,12 @@ module.exports = {
             plugins: [require('babel-plugin-transform-object-rest-spread')]
           }
         }
+      },
+      {
+        test: /\.svg$/,
+        use: {
+          loader: 'svg-inline-loader'
+        }
       }
     ]
   }

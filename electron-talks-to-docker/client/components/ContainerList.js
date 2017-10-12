@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Container from './container';
+import Container from "./container";
 
 const styles = {
   empty: {},
   section: {
-    padding: '1rem 1rem 1rem 0rem'
+    padding: "1rem 1rem 1rem 0rem"
   }
 };
 
@@ -17,11 +17,11 @@ export default class Containers extends React.Component {
   }
 
   refresh() {
-    fetch('http://localhost:9000/')
+    fetch("http://localhost:9000/")
       .then(response => response.json())
       .then(containers => {
-        const running = containers.filter(c => c.state === 'running');
-        const other = containers.filter(c => c.state !== 'running');
+        const running = containers.filter(c => c.state === "running");
+        const other = containers.filter(c => c.state !== "running");
         this.setState({
           running,
           other
