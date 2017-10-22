@@ -1,3 +1,4 @@
 project
 target
 .ensime
+.ensime_cache
