@@ -1,93 +1,132 @@
 const express = require("express");
+const http = require("http");
+const url = require("url");
 const bodyParser = require("body-parser");
 const webpack = require("webpack");
 const webpackDevMiddleware = require("webpack-dev-middleware");
+const WebSocket = require("ws");
+var stream = require("stream");
 
-const docker = require("./docker");
-
-const server = express();
+const app = express();
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
 const compiler = webpack(require("../webpack.config"));
 
-server.use(
+app.use(
   webpackDevMiddleware(compiler, {
     publicPath: "/webpack/",
     lazy: true
   })
 );
 
-server.use(bodyParser.json());
+const Docker = require("dockerode");
+const dockerode = new Docker({ socketPath: "/var/run/docker.sock" });
 
-server.get("/", (req, res) => {
-  docker
-    .containers()
-    .then(containers => res.send(containers))
+app.use(bodyParser.json());
+
+wss.on("connection", function connection(ws, req) {
+  const location = url.parse(req.url, true);
+  const container = dockerode.getContainer(location.query.containerId);
+  var logStream = new stream.PassThrough();
+
+  logStream.on("data", function(chunk) {
+    ws.send(chunk.toString("utf8"));
+  });
+
+  container.logs(
+    {
+      follow: true,
+      tail: 5,
+      stdout: true,
+      stderr: true
+    },
+    function(err, stream) {
+      if (err) {
+        return console.error(err.message);
+      }
+      container.modem.demuxStream(stream, logStream, logStream);
+    }
+  );
+
+  ws.on("message", function incoming(message) {
+    console.log("received: %s", message);
+  });
+});
+
+app.get("/", (req, res) => {
+  dockerode
+    .listContainers({all: true})
+    .then(containers => containers.map(container => {
+      const name = container.Names.join(" ").replace("/", "");
+      return {
+        name: name,
+        container_id: container.Id,
+        image: container.Image,
+        // created|restarting|running|removing|paused|exited|dead
+        state: container.State,
+        status: container.Status,
+        ports: container.Ports.map(port => ({
+          publicPort: port.PublicPort,
+          privatePort: port.PrivatePort
+        }))
+      };
+    }))
+    .then(containers => {
+      res.send(containers);
+    })
     .catch(e => console.error(e));
 });
 
-server.use("/assets", express.static("assets"));
+app.use("/assets", express.static("assets"));
 
-server.get("/remove/:container_id", (req, res) => {
-  docker
-    .request(`/containers/${req.params.container_id}?v=1`, "DELETE")
-    .then(response => {
-      res.send("OK");
-    })
-    .catch(e => console.log(e));
+app.get("/remove/:container_id", (req, res) => {
+  dockerode.getContainer(req.params.container_id).remove().then(() => {
+    res.send("OK");
+  }).catch(e => console.log(e));
 });
 
-server.get("/start/:container_id", (req, res) => {
-  docker
-    .start(req.params.container_id)
-    .then(response => {
-      res.send("OK");
-    })
-    .catch(e => console.log(e));
+app.get("/start/:container_id", (req, res) => {
+  dockerode.getContainer(req.params.container_id).start().then(() => {
+    res.send("OK");
+  }).catch(e => console.log(e));
 });
 
-server.post("/create", (req, res) => {
+app.post("/create", (req, res) => {
   console.warn("body is", req.body);
-  docker
-    .request("/containers/create", "POST", {
+  dockerode.createContainer({
       Image: req.body.image,
       AttachStdout: false,
       AttachStderr: false,
       Cmd: req.body.command || null
     })
-    .then(response => {
-      console.warn("Got response", response);
-      docker.start(req.params.container_id).then(response => {
-        res.send("OK");
-      });
+    .then(container => {
+      return container.start()
     })
     .catch(e => console.error(e));
 });
 
-server.get("/stop/:container_id", (req, res) => {
-  docker
-    .request(`/containers/${req.params.container_id}/stop`, "POST")
-    .then(response => {
+app.get("/stop/:container_id", (req, res) => {
+  dockerode
+    .getContainer(req.params.container_id)
+    .stop()
+    .then(() => {
       res.send("OK");
     })
-    .catch(e => console.log(e));
-});
-
-server.get("/kill/:container_id", (req, res) => {
-  const id = req.params.container_id;
-  docker
-    .request(`/containers/${id}/wait?condition=removed`, "POST")
-    .then(response => {
-      console.log("Got response", response);
-      res.send(response);
-    })
     .catch(e => {
-      console.log("Waiting failed failed", e);
+      console.log(e);
       res.status(500).send(e);
     });
+});
 
-  docker.request(`/containers/${id}?force=true`, "DELETE").catch(e => {
-    console.log("Deletion failed", e);
-    res.status(500).send(e);
-  });
+app.get("/kill/:container_id", (req, res) => {
+  dockerode
+    .getContainer(req.params.container_id)
+    .remove()
+    .then(() => res.send('OK'))
+    .catch(e => {
+      console.error(e);
+      res.status(500).send(e)
+    });
 });
 
 const port = 9000;

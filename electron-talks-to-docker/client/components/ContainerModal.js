@@ -1,5 +1,7 @@
 import React from "react";
 
+import Logs from "./Logs";
+
 const styles = {
   container: {
     width: "100%",
@@ -29,16 +31,56 @@ export default class ContainerModal extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      logs: [],
+      streaming: true
+    };
     this.state = this.updateStateFromProps(props);
+  }
+
+  openSocket() {
+    // Create WebSocket connection.
+    const url = `ws://localhost:9000/logs?containerId=${this.state.container
+      .container_id}`;
+    console.log("Starting socket", url);
+    const socket = new WebSocket(url);
+
+    // Connection opened
+    socket.addEventListener("open", event => {
+      socket.send("Hello Server!");
+    });
+
+    // Listen for messages
+    socket.addEventListener("message", event => {
+      console.log("Message from server ", event.data);
+      this.setState((prevState, props) => ({
+        ...prevState,
+        logs: prevState.logs.concat([event.data])
+      }));
+    });
+  }
+
+  closeSocket() {
+    this.setState((prevState, props) => ({
+      ...prevState,
+      streaming: false
+    }));
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState(this.updateStateFromProps(nextProps));
+
+    if (this.state.hidden !== nextProps.hidden) {
+      if (nextProps.hidden) {
+        this.closeSocket();
+      } else {
+        this.openSocket();
+      }
+    }
   }
 
   render() {
-    const { container, onHide, hidden } = this.state;
+    const { container, onHide, hidden, logs, streaming } = this.state;
     if (hidden) {
       return null;
     }
@@ -46,6 +88,9 @@ export default class ContainerModal extends React.Component {
       <div style={styles.container} onClick={e => onHide()}>
         <div style={styles.content} onClick={e => e.stopPropagation()}>
           <h1>{container.name}</h1>
+          <h2>Logs</h2>
+          {streaming ? <span>Streaming</span> : null}
+          <Logs lines={logs} />
         </div>
       </div>
     );
