@@ -16,6 +16,8 @@ object Main extends App {
 
   val transactor = Transactor.fromDriverManager[IO](
     "org.postgresql.Driver", "jdbc:postgresql:world", "postgres", ""
+    // If you want to use MySQL use the following instead.
+    // "com.mysql.jdbc.Driver", "jdbc:mysql://localhost/world", "root", "root"
   )
 
   sql"select name from country"
