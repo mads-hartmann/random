@@ -1,0 +1,53 @@
+---
+# Create a namespace so we don't pollute things.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: random-storage
+---
+# Create a storage class that uses the minikube-hostpath provisioner
+# to dynamically provision volumes to fulfill persistent volume claims.
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: shell-storage-class
+  namespace: random-storage
+provisioner: k8s.io/minikube-hostpath
+reclaimPolicy: Retain
+---
+# Create a persistent volume claim that requests 1gb of storage from the
+# storage class defined above.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shell-persistent-volume-claim
+  namespace: random-storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: shell-storage-class
+  resources:
+    requests:
+      storage: 1Gi
+---
+# Start a container that sleeps forever.
+# The container uses the persistent volume claim from above to register a volume.
+# It mounts that volume into /var/random.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shell
+  namespace: random-storage
+spec:
+  volumes:
+    - name: shell-volume
+      persistentVolumeClaim:
+        claimName: shell-persistent-volume-claim
+  containers:
+    - image: alpine:3.7
+      name: shell
+      command: ["/bin/sh"]
+      args: ["-c", "while true; do echo hello; sleep 10; done"]
+      volumeMounts:
+      - name: shell-volume
+        mountPath: "/var/random"
