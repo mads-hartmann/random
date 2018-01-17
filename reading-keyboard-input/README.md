@@ -1,10 +1,25 @@
 # Reading Keyboard Input
 
-This is an experiment. The main problem I'm trying to figure out is how to get
-Emacs running inside of iTerm to send the same control keys that I'm used to
-when running the proper GUI version of Emacs on OS X.
+## Problem
 
-One example: Ctrl+. work in GUI Emacs but not in iTerm.
-TODO: Investigate why, figure out how I can get iTerm to send some kind of input
-to Emacs that I can react to. I have a feeling that one solution might be to get iTerm
-to send a sequence that I've defined and then add a mapping for that in Emacs.
+In my Emacs configuration I have a key-binding for `ctrl-.` which works
+perfectly when I run `Emacs.app`. When I run Emacs in the terminal (iTerm)
+nothing happens. Why?
+
+## Terminology
+
+- What are these things called? The Non-printable characters (control
+sequences?, escape sequence?)
+
+- How can Emacs GUI catch it and not iTerm
+  Is the problem that iTerm doesn't send the correct XXX (use from from above?)
+
+# Solution
+
+I don't know yet but I have a feeling that iTerm only sends a fixed set of
+escape sequences and that more can be added through iTerms preferences
+
+## Resources
+
+I think this has the best description.
+https://unix.stackexchange.com/questions/116562/key-bindings-table#answer-116614
