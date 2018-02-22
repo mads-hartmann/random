@@ -1,22 +1,42 @@
-export type Ast = Function | Assignment
-
-export interface Function {
-  kind: "function";
+export interface Declaration {
+  kind: string;
   name: string;
+  startLine: number;
+  startColumn: number;
+  endLine: number;
+  endColumn: number;
 }
 
-export function Function(name: string): Function {
+export function Function(
+  name: string,
+  startLine: number,
+  startColumn: number,
+  endLine: number,
+  endColumn: number
+): Declaration {
   return {
     kind: "function",
-    name: name
+    name,
+    startLine,
+    startColumn,
+    endLine,
+    endColumn
   }
 }
 
-export interface Assignment {
-  kind: "assignment";
-  name: string
-}
-
-export type Program = {
-  statements: [Ast]
+export function Variable(
+  name: string,
+  startLine: number,
+  startColumn: number,
+  endLine: number,
+  endColumn: number
+): Declaration {
+  return {
+    kind: "variable",
+    name,
+    startLine,
+    startColumn,
+    endLine,
+    endColumn
+  }
 }

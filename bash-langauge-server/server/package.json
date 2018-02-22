@@ -12,29 +12,13 @@
 		"url": "https://github.com/Microsoft/vscode-extension-samples"
 	},
 	"dependencies": {
-		"@types/jest": "^22.1.3",
-		"@types/parsimmon": "^1.6.1",
-		"jest": "^22.3.0",
-		"parsimmon": "^1.6.4",
-		"typescript": "^2.7.2",
+		"tree-sitter": "^0.9.2",
+		"tree-sitter-bash": "^0.5.0",
 		"vscode-languageserver": "^3.5.0"
 	},
 	"scripts": {
 		"installServer": "installServerIntoExtension ../client ./package.json ./tsconfig.json",
 		"compile": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -p .",
-		"watch": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -w -p .",
-		"test": "jest"
-	},
-	"jest": {
-		"moduleFileExtensions": [
-			"ts",
-			"js"
-		],
-		"transform": {
-			"^.+\\.(ts)$": "<rootDir>/tests/preprocessor.js"
-		},
-		"testMatch": [
-			"**/tests/*.(ts)"
-		]
+		"watch": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -w -p ."
 	}
 }

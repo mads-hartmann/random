@@ -1,27 +1,26 @@
 'use strict';
 
 import {
-	IPCMessageReader, IPCMessageWriter, createConnection, IConnection, TextDocuments, TextDocument,
-	Diagnostic, DiagnosticSeverity, InitializeResult, TextDocumentPositionParams, CompletionItem,
+  createConnection,
+  IConnection,
+  TextDocuments,
+  InitializeResult,
+  TextDocumentPositionParams,
+  CompletionItem,
 	CompletionItemKind,
-  Definition
+  Definition,
+  StreamMessageReader,
+  StreamMessageWriter
 } from 'vscode-languageserver';
 
 import * as Analyser from './analyser';
 
-// The settings interface describe the server relevant settings part
-interface Settings {
-	lspSample: ExampleSettings;
-}
-
-// These are the example settings we defined in the client's package.json
-// file
-interface ExampleSettings {
-	maxNumberOfProblems: number;
-}
-
-// Create a connection for the server. The connection uses Node's IPC as a transport
-let connection: IConnection = createConnection(new IPCMessageReader(process), new IPCMessageWriter(process));
+// Create a connection for the server. The connection uses stdin/stdout for
+// communication.
+let connection: IConnection = createConnection(
+  new StreamMessageReader(process.stdin),
+  new StreamMessageWriter(process.stdout)
+);
 
 // Create a simple text document manager. The text document manager
 // supports full document sync only
@@ -55,41 +54,6 @@ documents.onDidChangeContent((change) => {
   Analyser.analyze(change.document);
 });
 
-// hold the maxNumberOfProblems setting
-let maxNumberOfProblems: number;
-// The settings have changed. Is send on server activation
-// as well.
-connection.onDidChangeConfiguration((change) => {
-	let settings = <Settings>change.settings;
-	maxNumberOfProblems = settings.lspSample.maxNumberOfProblems || 100;
-	// Revalidate any open text documents
-	documents.all().forEach(validateTextDocument);
-});
-
-function validateTextDocument(textDocument: TextDocument): void {
-	let diagnostics: Diagnostic[] = [];
-	let lines = textDocument.getText().split(/\r?\n/g);
-	let problems = 0;
-	for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
-		let line = lines[i];
-		let index = line.indexOf('typescript');
-		if (index >= 0) {
-			problems++;
-			diagnostics.push({
-				severity: DiagnosticSeverity.Warning,
-				range: {
-					start: { line: i, character: index },
-					end: { line: i, character: index + 10 }
-				},
-				message: `${line.substr(index, 10)} should be spelled TypeScript`,
-				source: 'ex'
-			});
-		}
-	}
-	// Send the computed diagnostics to VSCode.
-	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
-}
-
 connection.onDidChangeWatchedFiles((_change) => {
 	// Monitored files have change in VSCode
 	connection.console.log('We received an file change event');
@@ -97,10 +61,14 @@ connection.onDidChangeWatchedFiles((_change) => {
 
 connection.onDefinition((textDocumentPosition: TextDocumentPositionParams): Definition => {
   connection.console.log(`Asked for definition at ${textDocumentPosition.position.line}:${textDocumentPosition.position.character}`);
-  return Analyser.findDefinition(
+  const word = Analyser.wordAtPoint(
     textDocumentPosition.textDocument.uri,
     textDocumentPosition.position.line,
     textDocumentPosition.position.character
+  )
+  return Analyser.findDefinition(
+    textDocumentPosition.textDocument.uri,
+    word
   );
 });
 
