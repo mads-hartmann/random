@@ -23,3 +23,6 @@ escape sequences and that more can be added through iTerms preferences
 
 I think this has the best description.
 https://unix.stackexchange.com/questions/116562/key-bindings-table#answer-116614
+
+For the Emacs side of things this looks to be the best
+https://www.masteringemacs.org/article/mastering-key-bindings-emacs
