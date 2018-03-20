@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
 
 function branch-name {
     git rev-parse --abbrev-ref HEAD
