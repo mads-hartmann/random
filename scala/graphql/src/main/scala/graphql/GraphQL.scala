@@ -18,25 +18,46 @@ object GraphQL {
 
   final case class Object[S](
     name: String,
-    fields: List[Field[S, _]] // TODO: What do I call the use of _ here?
+    fields: List[Field[S]]
   ) extends Type[S]
 
-  // I don't really care about O here I just want to tell the Scala
-  // compiler that the type parameter of output and the result of the
-  // resolve function should be the same type.
-  final case class Field[S, O](
-    name: String,
-    output: Type[O],
-    resolve: S => O
-  )
+  trait Field[S] {
+    // We use a type memeber here rather than a type parameter as we're
+    // want to use it as an existential type.
+    //   Had I used a type parameter and created a List[Field] it would
+    // unifty the type.
+    type O
+    def name: String
+    def output: Type[O]
+    def resolve: S => O
+  }
+
+  object Field {
+
+    // Convention used to convert a type parameter to a type member.
+    type Aux[S, O0] = Field[S] { type O = O0 }
+
+    def apply[S, O0](
+      name: String,
+      output: Type[O0],
+      resolve: S => O0
+    ): Aux[S, O0] = {
+      val n = name
+      val o = output
+      val r = resolve
+      new Field[S] {
+        type O = O0
+        val name: String = n
+        val output: Type[O] = o
+        val resolve: S => O = r
+      }
+    }
+  }
 
   def toJSON[S](s: S, tpe: Type[S]): Json = tpe match {
     case Scalar(name, serialize) => serialize(s)
     case Object(name, fields) => {
       val members = fields.map { field =>
-        // The reason this doesn't work is that fields has type
-        // List[Field[S, Any]] as Any is the only applicable super-type
-        // for all the fields.
         val json = toJSON(field.resolve(s), field.output)
         (field.name, json)
       }
@@ -62,8 +83,8 @@ object Example {
 
   val Name = GraphQL.Field(
     name="name",
-    output=GraphQL.int,
-    resolve=(u: User) => u.id
+    output=GraphQL.string,
+    resolve=(u: User) => u.name
   )
 
   val UserType = GraphQL.Object(
@@ -71,9 +92,13 @@ object Example {
     List(Id, Name)
   )
 
-  GraphQL.toJSON(
-    User("Mads", 42),
-    UserType
-  )
+  def main(args: Array[String]) = {
+    val x = GraphQL.toJSON(
+      User("Mads", 42),
+      UserType
+    )
+    println(x)
+  }
+
 
 }
