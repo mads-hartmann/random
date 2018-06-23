@@ -1,18 +1,17 @@
-Trying to implement a tiny graphql server in Scala based on
-this [blog post](https://andreas.github.io/2017/11/29/type-safe-graphql-with-ocaml-part-1/).
+Trying to port [ocaml-graphql-server][ocaml-graphql-server] to Scala by 
+following Andreas' [blog post][blog-post].
 
-```
-scalars (leafs)
-    source type
-    serializer
-objects (non-leaf nodes)
-    source type
-    collection of fields (a field is an edge)
-field
-    name
-    resolve function
-```
+The goal is to uphold the requirements described in the OCaml project:
 
-> Furthermore, the definition needs to support introspection, so we
-> cannot just have a graph of closures, which hide the structure of
-> the graph itself
+> Only valid schemas should pass the type checker. If a schema compiles, the 
+> following holds:
+>
+> 1. The type of a field agrees with the return type of the resolve function.
+> 2. The arguments of a field agrees with the accepted arguments of the resolve
+>    function.
+> 3. The source of a field agrees with the type of the object to which it 
+>    belongs.
+> 4. The context argument for all resolver functions in a schema agree.
+
+[ocaml-graphql-server]: https://github.com/andreas/ocaml-graphql-server
+[blog-post]: https://andreas.github.io/2017/11/29/type-safe-graphql-with-ocaml-part-1/
