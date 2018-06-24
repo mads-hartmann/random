@@ -9,7 +9,9 @@ object Schema {
     * A GADT is used here to enforce that types are nullable by default
     * and should be marked non-nullable in the Schema using [[NonNull]].
     */
-  sealed trait Type[S]
+  sealed trait Type[S] {
+    def toJSON(s: S): Json
+  }
 
   /** A [[Scalar]] is a leaf-node in your GraphQL schema. It has a [[name]] and
     * a way to [[serialize]] the underlying [[S]] value to a [[Json]] value.
@@ -17,7 +19,12 @@ object Schema {
   final case class Scalar[S](
       name: String,
       serialize: S => Json
-  ) extends Type[Option[S]]
+  ) extends Type[Option[S]] {
+    override def toJSON(s: Option[S]): Json = s match {
+      case None     => JNull
+      case Some(ss) => serialize(ss)
+    }
+  }
 
   object Scalar {
     val int: Scalar[Int] =
@@ -40,17 +47,30 @@ object Schema {
   final case class Object[S](
       name: String,
       fields: List[Field[S]]
-  ) extends Type[Option[S]]
+  ) extends Type[Option[S]] {
+    override def toJSON(s: Option[S]): Json = s match {
+      case None => JNull
+      case Some(ss) =>
+        val members = fields.map { field =>
+          (field.name, field.output.toJSON(field.resolve(ss)))
+        }
+        JObject(members)
+    }
+  }
 
   /**
     * [[NonNull]] lifts a nullable [[Type]] into a non-nullable one.
     */
-  final case class NonNull[S](tpe: Type[Option[S]]) extends Type[S]
+  final case class NonNull[S](tpe: Type[Option[S]]) extends Type[S] {
+    override def toJSON(s: S): Json = tpe.toJSON(Some(s))
+  }
 
   /**
     * [[GList]] converts a [[Type]] into a List.
     */
-  final case class GList[S](tpe: Type[S]) extends Type[List[S]]
+  final case class GList[S](tpe: Type[S]) extends Type[List[S]] {
+    override def toJSON(s: List[S]): Json = JArray(s.map(tpe.toJSON))
+  }
 
   /**
     * A [[Field]] represents an edge in your GraphQL schema going from a
@@ -115,58 +135,6 @@ object Schema {
     *   See commit 60d3c32a3580f4f460a58831bbedbf96a2388f29 for the original
     * implementation which had problems.
     */
-  def toJSON[S](source: S, tpe: Type[S]): Json = tpe match {
-
-    // Here the Scala compiler knows that S really is an Option[_] as
-    // Scalar[S] and Object[S] both have type Type[Option[S]]
-    case Scalar(_, serialize) => toJSONOpt(source, tpe)
-    case Object(_, fields)    => toJSONOpt(source, tpe)
-
-    // Here the Scala compiler should know that S is just a simple type (not an
-    // Option) and that inner has type Type[Option[S]].
-    case NonNull(inner) => toJSON(Some(source), inner)
-
-    // Why oh why does it infer inner to be Type[Any] instead
-    // of Type[S] ?!
-    // It's probably because of type-erasure.
-    case GList(inner) => toJSONList(source, inner)
-  }
-
-  private def toJSONList[S](source: List[S], tpe: Type[List[S]]): Json =
-    tpe match {
-      case GList(inner) =>
-        JArray(source.map(s => toJSON(s, inner)))
-      case _ => ???
-    }
-
-  private def toJSONOpt[S](source: Option[S], tpe: Type[Option[S]]): Json =
-    tpe match {
-      case Scalar(_, serialize) =>
-        source match {
-          case None    => JNull
-          case Some(s) => serialize(s)
-        }
-      case Object(_, fields) =>
-        source match {
-          case Some(s) => {
-            val members = fields.map { field =>
-              val json = toJSON(field.resolve(s), field.output)
-              (field.name, json)
-            }
-            JObject(members)
-          }
-          case None => JNull
-        }
-      // I really wish the compiler could look at the GADT and see that the
-      // only two relevant cases for Type[Option[_]] is Scalar and Object.
-      case NonNull(_) =>
-        throw new Exception(
-          """
-          |So this is a bit embarrassing.
-          |The compiler should have stopped you from constructing a schema that
-          |contains a non-nullable optional value but somehow you manged.
-        """.stripMargin
-        )
-    }
+  def toJSON[S](source: S, tpe: Type[S]): Json = tpe.toJSON(source)
 
 }
