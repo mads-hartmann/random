@@ -48,6 +48,11 @@ object Schema {
   final case class NonNull[S](tpe: Type[Option[S]]) extends Type[S]
 
   /**
+    * [[GList]] converts a [[Type]] into a List.
+    */
+  final case class GList[S](tpe: Type[S]) extends Type[List[S]]
+
+  /**
     * A [[Field]] represents an edge in your GraphQL schema going from a
     * [[Type]] with an underlying source [[S]] to a [[Type]] with
     * underlying source [[Field#Out]].
@@ -119,9 +124,20 @@ object Schema {
 
     // Here the Scala compiler should know that S is just a simple type (not an
     // Option) and that inner has type Type[Option[S]].
-    case NonNull(inner) => toJSONOpt(Some(source), inner)
+    case NonNull(inner) => toJSON(Some(source), inner)
 
+    // Why oh why does it infer inner to be Type[Any] instead
+    // of Type[S] ?!
+    // It's probably because of type-erasure.
+    case GList(inner) => toJSONList(source, inner)
   }
+
+  private def toJSONList[S](source: List[S], tpe: Type[List[S]]): Json =
+    tpe match {
+      case GList(inner) =>
+        JArray(source.map(s => toJSON(s, inner)))
+      case _ => ???
+    }
 
   private def toJSONOpt[S](source: Option[S], tpe: Type[Option[S]]): Json =
     tpe match {
