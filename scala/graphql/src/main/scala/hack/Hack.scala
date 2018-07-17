@@ -4,8 +4,7 @@ import util.Tuple
 import util.TupleOps._
 
 // TODO
-// - Why do I have to call hac3 explicitly?
-// - If I remove hac3 I get a not very helpful compile error.
+// - See if it's possible to generate a nice error message if it doesn't compile
 // - I haven't encoded the source of the field yet. I would need PrependTwoAux or something similar
 //   but I don't want to do that unless I know that is the encoding I want to use.
 
@@ -24,7 +23,7 @@ object Hack {
   Field(
     ctx = MyContext("what"),
     args = ("hest", 42),
-    resolve = hac3((ctx: MyContext, name: String, id: Int) => id)
+    resolve = (ctx: MyContext, name: String, id: Int) => id
   )
 
 }

@@ -3,12 +3,18 @@ package util
 // format: off
 
 private[util] abstract class ApplyConverterInstances {
+
+  type Aux[T, A, In0] = ApplyConverter[T, A] { type In = In0 }
+
+  implicit def whatever[T1, T2, T3, A, In](f: In)(implicit ev: Aux[Tuple3[T1, T2, T3], A, In]) = ev.apply(f)
+
   implicit def hac1[T1, A]: ApplyConverter[Tuple1[T1], A] { type In = (T1) ⇒ A } = new ApplyConverter[Tuple1[T1], A] {
     type In = (T1) ⇒ A
     def apply(fn: In): (Tuple1[T1]) ⇒ A = {
       case Tuple1(t1) ⇒ fn(t1)
     }
   }
+
   implicit def hac2[T1, T2, A]: ApplyConverter[Tuple2[T1, T2], A] { type In = (T1, T2) ⇒ A } = new ApplyConverter[Tuple2[T1, T2], A] {
     type In = (T1, T2) ⇒ A
     def apply(fn: In): (Tuple2[T1, T2]) ⇒ A = {
