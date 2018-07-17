@@ -15,6 +15,8 @@ object TupleOps {
   implicit def enhanceTuple[T: Tuple](tuple: T): TupleOps[T] =
     new TupleOps(tuple)
 
+  type PrependOneAux[A, T, O] = PrependOne[A, T] { type Out = O }
+
   trait PrependOne[A, T] {
     type Out
     def apply(value: A, tuple: T): Out

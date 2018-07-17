@@ -92,7 +92,18 @@ object Schema {
   trait Field[S] {
     type Out
     def name: String
+//    def arguments: ArgList[L]
     def output: Type[Out]
+    // TODO: I think I can make this work nicely this way
+    //       Use implicit magic to prefix S to the existing Tuple L such that we have
+    //       a tuple (S, L1, L2, ..LN).
+    //       See akka.http.scaladsl.server.util.TupleOps.Join / Append (can I just make Prepend?)
+    //
+    //         Use implicit magic to allow the user to pass in a literal (S, L1, L2, ..Ln) => Out
+    //       which we convert to Function1[TupleN[S, L1, L2, .. LN], Out].
+    //       See ApplyConverter in akka.http.scaladsl.server.util
+    //
+    //         That way we can cheat slightly and abstract over the functions arity.
     def resolve: S => Out
   }
 
