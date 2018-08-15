@@ -1,0 +1,218 @@
+16:30:35.554 INFO  s.meta.metals.Main$ - Starting server in /Users/hartmann/dev/personal/random/scala/doobie
+16:30:35.565 INFO  s.meta.metals.Main$ - Classpath: /Users/hartmann/.atom/packages/ide-scala/coursier
+16:30:37.563 INFO  s.m.m.Formatter$ - Classloading scalafmt with 28 downloaded jars
+16:30:38.085 INFO  s.meta.metals.Main$ - Listening....
+16:30:38.143 INFO  s.m.m.MetalsServices - Initialized with /Users/hartmann/dev/personal/random/scala/doobie, InitializeParams(83131,/Users/hartmann/dev/personal/random/scala/doobie/,ClientCapabilities())
+16:30:38.174 INFO  s.m.m.MetalsServices - File /Users/hartmann/dev/personal/random/scala/doobie/.metals/buildinfo/doobie/compile.properties changed
+16:30:38.197 INFO  s.m.m.MetalsServices - File /Users/hartmann/dev/personal/random/scala/doobie/.metals/buildinfo/doobie/test.properties changed
+16:30:38.223 INFO  s.m.m.MetalsServices - File /Users/hartmann/dev/personal/random/scala/doobie/target/scala-2.12/classes/META-INF/semanticdb/src/main/scala/example/Main.semanticdb changed
+16:30:38.240 INFO  s.m.m.c.ScalacProvider - Loading new compiler from config CompilerConfig(sources={+1}, scalacOptions=-Ypartial-unification -Yrangepos -Xplugin-require:semanticdb -Xplugin:/Users/hartmann/.ivy2/cache/org.scalameta/semanticdb-scalac_2.12.4/jars/semanticdb-scalac_2.12.4-2.1.7.jar, dependencyClasspath={+23}, classDirectory=/Users/hartmann/dev/personal/random/scala/doobie/target/scala-2.12/classes, sourceJars={+139}, origin=/Users/hartmann/dev/personal/random/scala/doobie/.metals/buildinfo/doobie/compile.properties, scalaVersion=2.12.4)
+16:30:38.268 INFO  s.m.m.Semanticdbs$ - Loading file file:/Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala
+16:30:38.268 INFO  s.m.m.MetalsServices - File /Users/hartmann/dev/personal/random/scala/doobie/project/target/active.json changed
+16:30:38.280 INFO  s.m.m.Semanticdbs$ - Loading file file:/Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala
+16:30:38.283 INFO  s.m.m.s.InMemoryDocumentIndex - Storing in-memory document for uri Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+16:30:38.293 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/src.zip
+16:30:38.457 INFO  s.m.m.MetalsServices - Client is initialized
+16:30:38.483 INFO  s.m.m.MetalsServices - Configuration updated Configuration(Sbt(Enabled(true),),Scalac(Enabled(false),Enabled(false)),Scalafmt(true,false,1.4.0,Some(.scalafmt.conf)),Scalafix(true,Some(.scalafix.conf)),Search(true,true),Enabled(true),Enabled(false),Enabled(false))
+16:30:40.144 ERROR s.m.m.s.InMemorySymbolIndex - Failed to index jar:file:///Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/src.zip!/com/sun/jmx/snmp/IPAcl/ParserConstants.java
+java.lang.IllegalArgumentException: 1803 is not a valid offset, allowed [0..1801]
+	at org.langmeta.internal.inputs.InternalInput.offsetToLine(InternalInput.scala:42)
+	at org.langmeta.internal.inputs.InternalInput.offsetToLine$(InternalInput.scala:36)
+	at org.langmeta.inputs.Input$VirtualFile.offsetToLine(Input.scala:74)
+	at org.langmeta.inputs.Position$Range.endLine(Position.scala:40)
+	at org.langmeta.languageserver.InputEnrichments$XtensionInputOffset$.toIndexRange$extension(InputEnrichments.scala:32)
+	at scala.meta.metals.search.InMemorySymbolIndex.$anonfun$indexDocument$1(InMemorySymbolIndex.scala:193)
+	at scala.meta.metals.search.InMemorySymbolIndex.$anonfun$indexDocument$1$adapted(InMemorySymbolIndex.scala:181)
+	at scala.collection.Iterator.foreach(Iterator.scala:929)
+	at scala.collection.Iterator.foreach$(Iterator.scala:929)
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1417)
+	at scala.collection.IterableLike.foreach(IterableLike.scala:71)
+	at scala.collection.IterableLike.foreach$(IterableLike.scala:70)
+	at scala.collection.AbstractIterable.foreach(Iterable.scala:54)
+	at scala.meta.metals.search.InMemorySymbolIndex.indexDocument(InMemorySymbolIndex.scala:181)
+	at scala.meta.metals.search.InMemorySymbolIndex.$anonfun$indexDatabase$1(InMemorySymbolIndex.scala:158)
+	at scala.collection.Iterator.foreach(Iterator.scala:929)
+	at scala.collection.Iterator.foreach$(Iterator.scala:929)
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1417)
+	at scala.collection.IterableLike.foreach(IterableLike.scala:71)
+	at scala.collection.IterableLike.foreach$(IterableLike.scala:70)
+	at scala.collection.AbstractIterable.foreach(Iterable.scala:54)
+	at scala.meta.metals.search.InMemorySymbolIndex.indexDatabase(InMemorySymbolIndex.scala:157)
+	at scala.meta.metals.search.InMemorySymbolIndex.$anonfun$indexDependencyClasspath$7(InMemorySymbolIndex.scala:144)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.meta.metals.search.InMemorySymbolIndex.$anonfun$indexDependencyClasspath$6(InMemorySymbolIndex.scala:137)
+	at scala.meta.metals.search.InMemorySymbolIndex.$anonfun$indexDependencyClasspath$6$adapted(InMemorySymbolIndex.scala:136)
+	at scala.meta.metals.storage.LevelDBMap$.withDB(LevelDBMap.scala:85)
+	at scala.meta.metals.search.InMemorySymbolIndex.$anonfun$indexDependencyClasspath$1(InMemorySymbolIndex.scala:136)
+	at monix.eval.internal.TaskRunLoop$.monix$eval$internal$TaskRunLoop$$loop$1(TaskRunLoop.scala:187)
+	at monix.eval.internal.TaskRunLoop$RestartCallback$1.onSuccess(TaskRunLoop.scala:119)
+	at monix.eval.Task$.$anonfun$forkedUnit$2(Task.scala:1463)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+16:30:40.830 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/co.fs2/fs2-core_2.12/srcs/fs2-core_2.12-0.10.3-sources.jar
+16:30:40.840 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.tpolecat/doobie-free_2.12/srcs/doobie-free_2.12-0.5.2-sources.jar
+16:30:40.873 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/com.lihaoyi/sourcecode_2.12/srcs/sourcecode_2.12-0.1.4-sources.jar
+16:30:40.874 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.12.4-sources.jar
+16:30:40.903 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.tpolecat/doobie-specs2_2.12/srcs/doobie-specs2_2.12-0.5.2-sources.jar
+16:30:40.907 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/srcs/scala-xml_2.12-1.0.6-sources.jar
+16:30:40.928 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/com.chuusai/shapeless_2.12/srcs/shapeless_2.12-2.3.3-sources.jar
+16:30:40.949 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.specs2/specs2-matcher_2.12/srcs/specs2-matcher_2.12-4.0.3-sources.jar
+16:30:40.963 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.typelevel/cats-effect_2.12/srcs/cats-effect_2.12-0.10-sources.jar
+16:30:40.968 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.typelevel/cats-macros_2.12/srcs/cats-macros_2.12-1.1.0-sources.jar
+16:30:40.969 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.typelevel/cats-core_2.12/srcs/cats-core_2.12-1.1.0-sources.jar
+16:30:40.994 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.scala-lang/scala-reflect/srcs/scala-reflect-2.12.4-sources.jar
+16:30:41.066 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.typelevel/macro-compat_2.12/srcs/macro-compat_2.12-1.1.1-sources.jar
+16:30:41.066 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.typelevel/cats-free_2.12/srcs/cats-free_2.12-1.1.0-sources.jar
+16:30:41.068 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.typelevel/cats-kernel_2.12/srcs/cats-kernel_2.12-1.1.0-sources.jar
+16:30:41.076 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.specs2/specs2-core_2.12/srcs/specs2-core_2.12-4.0.3-sources.jar
+16:30:41.087 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.12/srcs/scala-parser-combinators_2.12-1.1.0-sources.jar
+16:30:41.091 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.specs2/specs2-common_2.12/srcs/specs2-common_2.12-4.0.3-sources.jar
+16:30:41.109 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.specs2/specs2-fp_2.12/srcs/specs2-fp_2.12-4.0.3-sources.jar
+16:30:41.112 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.typelevel/machinist_2.12/srcs/machinist_2.12-0.6.2-sources.jar
+16:30:41.113 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.scala-sbt/test-interface/srcs/test-interface-1.0-sources.jar
+16:30:41.115 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.tpolecat/doobie-core_2.12/srcs/doobie-core_2.12-0.5.2-sources.jar
+16:30:41.122 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.scalameta/semanticdb-scalac_2.12.4/srcs/semanticdb-scalac_2.12.4-2.1.7-sources.jar
+16:30:41.124 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/jline/jline/srcs/jline-2.14.5-sources.jar
+16:30:41.132 INFO  s.m.m.s.InMemorySymbolIndex - Indexing classpath entry /Users/hartmann/.ivy2/cache/org.scala-lang/scala-compiler/srcs/scala-compiler-2.12.4-sources.jar
+16:30:41.238 INFO  s.m.m.c.ScalacProvider - Loading new compiler from config CompilerConfig(sources={+1}, scalacOptions=-Ypartial-unification -Yrangepos -Xplugin-require:semanticdb -Xplugin:/Users/hartmann/.ivy2/cache/org.scalameta/semanticdb-scalac_2.12.4/jars/semanticdb-scalac_2.12.4-2.1.7.jar, dependencyClasspath={+24}, classDirectory=/Users/hartmann/dev/personal/random/scala/doobie/target/scala-2.12/test-classes, sourceJars={+139}, origin=/Users/hartmann/dev/personal/random/scala/doobie/.metals/buildinfo/doobie/test.properties, scalaVersion=2.12.4)
+16:30:47.061 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):20:16
+16:30:47.062 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+16:30:47.074 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.example.Main.transactor.
+16:30:47.084 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.example.Main.transactor.
+16:30:47.090 INFO  s.m.m.p.DefinitionProvider$ - Found definition Main.scala [ 16:  6| 16: 16] _root_.example.Main.transactor.
+16:31:12.333 WARN  s.m.m.MetalsServices - Unhandled file event: FileEvent(file:///Users/hartmann/dev/personal/random/scala/doobie/project/target/scala-2.12/sbt-1.0/resolution-cache/default/doobie-build/scala_2.12/sbt_1.0/0.1-SNAPSHOT/resolved.xml.properties,Deleted)
+16:31:14.418 INFO  s.m.m.MetalsServices - File /Users/hartmann/dev/personal/random/scala/doobie/project/target/scala-2.12/sbt-1.0/resolution-cache/default/doobie-build/scala_2.12/sbt_1.0/0.1-SNAPSHOT/resolved.xml.properties changed
+16:31:14.419 WARN  s.m.m.MetalsServices - Unknown file extension for path Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/project/target/scala-2.12/sbt-1.0/resolution-cache/default/doobie-build/scala_2.12/sbt_1.0/0.1-SNAPSHOT/resolved.xml.properties)
+16:31:26.569 WARN  s.m.m.MetalsServices - Unhandled file event: FileEvent(file:///Users/hartmann/dev/personal/random/scala/doobie/target/scala-2.12/resolution-cache/default/doobie_2.12/0.1-SNAPSHOT/resolved.xml.properties,Deleted)
+16:31:27.475 INFO  s.m.m.MetalsServices - File /Users/hartmann/dev/personal/random/scala/doobie/target/scala-2.12/resolution-cache/default/doobie_2.12/0.1-SNAPSHOT/resolved.xml.properties changed
+16:31:27.476 WARN  s.m.m.MetalsServices - Unknown file extension for path Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/scala-2.12/resolution-cache/default/doobie_2.12/0.1-SNAPSHOT/resolved.xml.properties)
+16:31:54.828 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):20:23
+16:31:54.829 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+16:31:54.830 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor#yolo(Lcats/effect/Sync;)Ldoobie/util/yolo/Yolo;.
+16:31:54.831 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor#yolo.
+16:31:54.832 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [127:  8|127: 12] _root_.doobie.util.transactor.Transactor#yolo.
+16:31:55.130 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):20:23
+16:31:55.131 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+16:31:55.131 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor#yolo(Lcats/effect/Sync;)Ldoobie/util/yolo/Yolo;.
+16:31:55.319 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/sources/transactor.scala):121:25
+16:31:55.557 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):20:23
+16:31:55.558 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+16:31:55.559 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor#yolo(Lcats/effect/Sync;)Ldoobie/util/yolo/Yolo;.
+16:31:55.560 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor#yolo.
+16:31:55.561 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [127:  8|127: 12] _root_.doobie.util.transactor.Transactor#yolo.
+20:19:37.382 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):27:11
+20:19:37.393 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):26:15
+20:19:37.448 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+20:19:37.448 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+20:19:37.494 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.fragment.Fragment#query(Ldoobie/util/composite/Composite;Ldoobie/util/log/LogHandler;)Ldoobie/util/query/Query0;.
+20:19:37.507 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.fragment.Fragment#query.
+20:19:37.518 INFO  s.m.m.p.DefinitionProvider$ - Found definition fragment.scala [ 63:  8| 63: 13] _root_.doobie.util.fragment.Fragment#query.
+09:59:23.909 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):20:17
+09:59:23.918 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:23.920 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):20:21
+09:59:23.921 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:23.924 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor#yolo(Lcats/effect/Sync;)Ldoobie/util/yolo/Yolo;.
+09:59:23.924 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.example.Main.transactor.
+09:59:23.944 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.example.Main.transactor.
+09:59:23.946 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor#yolo.
+09:59:23.947 INFO  s.m.m.p.DefinitionProvider$ - Found definition Main.scala [ 16:  6| 16: 16] _root_.example.Main.transactor.
+09:59:23.947 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [127:  8|127: 12] _root_.doobie.util.transactor.Transactor#yolo.
+09:59:24.461 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):20:24
+09:59:24.462 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:24.463 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor#yolo(Lcats/effect/Sync;)Ldoobie/util/yolo/Yolo;.
+09:59:24.775 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):20:24
+09:59:24.775 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:24.776 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor#yolo(Lcats/effect/Sync;)Ldoobie/util/yolo/Yolo;.
+09:59:24.778 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor#yolo.
+09:59:24.778 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [127:  8|127: 12] _root_.doobie.util.transactor.Transactor#yolo.
+09:59:25.871 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/sources/transactor.scala):117:43
+09:59:26.158 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):17:44
+09:59:26.159 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:27.060 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:40
+09:59:27.060 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:27.061 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:27.238 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:38
+09:59:27.238 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:27.238 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:27.239 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:27.239 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [266: 11|266: 28] _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:27.240 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:40
+09:59:27.241 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:27.242 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:27.243 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:27.244 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [266: 11|266: 28] _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:27.471 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/sources/transactor.scala):249:37
+09:59:27.522 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/sources/transactor.scala):249:40
+09:59:27.741 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/sources/transactor.scala):249:40
+09:59:27.997 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/sources/transactor.scala):247:42
+09:59:31.138 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):18:0
+09:59:31.139 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:36.543 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:33
+09:59:36.544 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:36.544 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:37.476 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):17:54
+09:59:37.476 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:43.723 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:38
+09:59:43.723 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:43.730 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:43.730 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:43.731 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [266: 11|266: 28] _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:43.910 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:38
+09:59:43.910 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:43.911 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:43.917 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:38
+09:59:43.923 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:43.924 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:43.924 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:43.925 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [266: 11|266: 28] _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:44.094 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/sources/transactor.scala):249:37
+09:59:44.458 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/sources/transactor.scala):249:36
+09:59:46.512 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:37
+09:59:46.512 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:46.513 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:46.513 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:46.519 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [266: 11|266: 28] _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:46.591 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:37
+09:59:46.591 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:46.591 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:46.745 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:37
+09:59:46.745 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:46.746 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:46.746 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:46.746 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [266: 11|266: 28] _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:54.284 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):17:29
+09:59:54.285 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:54.465 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):17:31
+09:59:54.465 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:54.473 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):16:31
+09:59:54.473 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:54.474 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:54.475 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:54.475 INFO  s.m.m.p.DefinitionProvider$ - Found definition transactor.scala [266: 11|266: 28] _root_.doobie.util.transactor.Transactor.fromDriverManager.
+09:59:55.229 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/target/sources/transactor.scala):256:44
+09:59:57.163 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):26:32
+09:59:57.164 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:57.164 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.example.Child#(childId)
+09:59:57.173 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.example.Child#(childId)
+09:59:57.174 INFO  s.m.m.p.DefinitionProvider$ - Found definition Main.scala [ 12: 17| 12: 24] _root_.example.Child#(childId)
+09:59:58.557 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):29:81
+09:59:58.558 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+09:59:58.558 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.cats.effect.IO#unsafeRunSync()Ljava/lang/Object;.
+09:59:58.581 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.cats.effect.IO#unsafeRunSync.
+09:59:58.582 INFO  s.m.m.p.DefinitionProvider$ - Found definition IO.scala [238: 12|238: 25] _root_.cats.effect.IO#unsafeRunSync.
+10:00:01.083 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):29:75
+10:00:01.083 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+10:00:01.083 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.cats.effect.IO#unsafeRunSync()Ljava/lang/Object;.
+10:00:01.104 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):29:75
+10:00:01.104 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+10:00:01.105 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.cats.effect.IO#unsafeRunSync()Ljava/lang/Object;.
+10:00:01.106 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.cats.effect.IO#unsafeRunSync.
+10:00:01.106 INFO  s.m.m.p.DefinitionProvider$ - Found definition IO.scala [238: 12|238: 25] _root_.cats.effect.IO#unsafeRunSync.
+11:01:11.838 INFO  s.m.m.s.InMemorySymbolIndex - resolveName at Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala):29:65
+11:01:11.844 INFO  s.m.m.s.InMemorySymbolIndex - Found document for Uri(file:///Users/hartmann/dev/personal/random/scala/doobie/src/main/scala/example/Main.scala)
+11:01:11.845 INFO  s.m.m.s.InMemorySymbolIndex - Matching symbol _root_.doobie.util.yolo.Yolo#Query0YoloOps#checkOutput()Ljava/lang/Object;.
+11:01:11.850 INFO  s.m.m.s.InMemorySymbolIndex - Found definition symbol _root_.doobie.util.yolo.Yolo#Query0YoloOps#checkOutput.
+11:01:11.850 INFO  s.m.m.p.DefinitionProvider$ - Found definition yolo.scala [ 37: 10| 37: 21] _root_.doobie.util.yolo.Yolo#Query0YoloOps#checkOutput.
+11:01:12.696 INFO  s.m.m.MetalsServices - Shutting down...
+11:01:12.811 INFO  s.m.m.MetalsServices - exit(0)
