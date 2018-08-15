@@ -1,0 +1,9 @@
+set title "Test"
+set key invert reverse Left outside
+#set key autotitle columnheader
+set style data histogram
+set style histogram rowstacked
+set style fill solid border -1
+set boxwidth 0.75
+set xtics border in scale 0,0 nomirror rotate by 90  offset character 0, -9, 0
+plot 'data.txt' using 2:xtic(1) title 'Col1',  '' using 3 title 'Col2', '' using 4 title 'Col3'
