@@ -12,7 +12,8 @@ function is-even {
 }
 
 function epoch {
-    date +"%s"
+    local x=date +"%s"
+    echo $x
 }
 
 if is-even $(epoch)
