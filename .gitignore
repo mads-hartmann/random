@@ -1,6 +1,9 @@
 .DS_Store
 .vscode
 .idea
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
 
 **/_build
 .merlin
