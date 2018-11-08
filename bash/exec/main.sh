@@ -7,10 +7,22 @@ set -euo pipefail
 
 echo "Running main with PID $$"
 
-trap handle_sigterm TERM
+trap "sigterm" TERM
+trap "sigint" INT
+trap "sighup" HUP
 
-handle_sigterm() {
-    echo "Handling TERM $@"
+sighup() {
+    echo "Handling sighup"
+    exit 0
+}
+
+sigint() {
+    echo "Handling sigint"
+    exit 0
+}
+
+sigterm() {
+    echo "Handling sigterm"
     exit 0
 }
 
