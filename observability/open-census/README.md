@@ -9,7 +9,7 @@ I'm using Prometheus for metrics and [Zipkin] for traces because they're free an
 Start Prometheus, it will be running on http://localhost:9090
 
 ```
-
+TODO
 ```
 
 Start Zipkin, it will be running on http://localhost:9411
@@ -18,16 +18,33 @@ Start Zipkin, it will be running on http://localhost:9411
 docker run -p 9411:9411 openzipkin/zipkin:2.14.1
 ```
 
+Run the services
+
+```
+npm install
+node src/service-a.js # in one tab
+node src/service-b.js # in another tab
+```
+
+Fire off a few requests
+
+```
+sh/send-requests.sh
+```
+
+Go to the Zipkin UI to check out the traces - they should appear within a minute
+http://localhost:9411/zipkin/.
+
 ## TODO
 
 ### Traces
 
-- [] Create a service B and let service A invoke it.
-- [] Get the trace context propagation to work
-- [] README
-  - [] Add commands to run the two node services
-  - [] Add a shell command to hit the endpoints a few times
-  - [] Describe how to read the traces in the UI to verify it works
+- [x] Create a service B and let service A invoke it.
+- [x] Get the trace context propagation to work
+- [x] README
+  - [x] Add commands to run the two node services
+  - [x] Add a shell command to hit the endpoints a few times
+  - [x] Describe how to read the traces in the UI to verify it works
 
 ### Metrics
 
