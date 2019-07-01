@@ -8,10 +8,12 @@ const http = require('http');
 const port = process.env.PORT || 8081
 const app = express();
 
-app.get('/sleep/:timeout', (request, response) => {
+app.get('/sleep/:timeout', async (request, response) => {
+  const timeout = request.params.timeout
   console.log(`headers: ${JSON.stringify(request.headers)}`);
+  await new Promise((resolve, reject) => setTimeout(resolve, timeout))
   response.status(200);
-  response.send("okay from service-b");
+  response.send(`okay from service-b with timeout ${timeout}`);
 });
 
 http

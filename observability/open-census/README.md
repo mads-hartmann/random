@@ -18,6 +18,18 @@ Start Zipkin, it will be running on http://localhost:9411
 docker run -p 9411:9411 openzipkin/zipkin:2.14.1
 ```
 
+_Alternatively_ start Honeycombs Zipkin compatible proxy to send the
+traces to your Honeycomb account instead.
+
+```
+docker run \
+    -p 9411:9411 \
+    honeycombio/honeycomb-opentracing-proxy:1.109 \
+        -d proof-of-concept \
+        -k $HONEYCOMB_API_KEY \
+        --debug
+```
+
 Run the services
 
 ```

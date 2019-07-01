@@ -10,7 +10,8 @@ module.exports = {
   start: (serviceName) => {
     tracing.start({
       exporter: new ZipkinTraceExporter({
-        url: 'http://localhost:9411/api/v2/spans',
+        // Use http://localhost:9411/api/v2/spans if you're sending to zipkin directly (The honeycomb proxy seems to use v1)
+        url: 'http://localhost:9411/api/v1/spans',
         serviceName,
         logLevel: 1 // show errors, if any
       }),
