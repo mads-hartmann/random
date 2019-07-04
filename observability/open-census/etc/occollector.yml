@@ -1,0 +1,29 @@
+log-level: DEBUG
+
+zpages:
+    port: 55679
+
+receivers:
+  opencensus:
+    address: "127.0.0.1:55678"
+
+exporters:
+  zipkin:
+    endpoint: "http://zipkin:9411/api/v2/spans"
+
+  datadog:
+    namespace: "occollector"
+    trace_addr: "datadog-agent:8126"
+    enable_tracing: true
+
+  honeycomb:
+    write_key: "PLACEHOLDER"
+    dataset_name: "proof-of-concept"
+
+sampling:
+  mode: head
+  policies:
+    probabilistic:
+      configuration:
+        sampling-percentage: 100
+        hash-seed: 1

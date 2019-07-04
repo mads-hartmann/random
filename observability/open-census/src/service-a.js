@@ -10,10 +10,9 @@ const port = process.env.PORT || 8080
 const app = express();
 
 app.get('/', async (request, response) => {
-  console.log(`headers: ${JSON.stringify(request.headers)}`);
 
-  const sleepMS1 = Math.floor(Math.random() * Math.floor(2000))
-  const sleepMS2 = Math.floor(Math.random() * Math.floor(4000))
+  const sleepMS1 = Math.floor(Math.random() * Math.floor(500))
+  const sleepMS2 = Math.floor(Math.random() * Math.floor(300))
 
   await new Promise((resolve, reject) => setTimeout(resolve, sleepMS1))
 

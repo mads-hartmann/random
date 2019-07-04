@@ -1,6 +1,6 @@
 const tracing = require('@opencensus/nodejs');
-const {ZipkinTraceExporter} = require('@opencensus/exporter-zipkin');
 const {TraceContextFormat} = require('@opencensus/propagation-tracecontext');
+const {OCAgentExporter} = require('@opencensus/exporter-ocagent');
 
 module.exports = {
   /**
@@ -9,14 +9,27 @@ module.exports = {
    */
   start: (serviceName) => {
     tracing.start({
-      exporter: new ZipkinTraceExporter({
-        // Use http://localhost:9411/api/v2/spans if you're sending to zipkin directly (The honeycomb proxy seems to use v1)
-        url: 'http://localhost:9411/api/v1/spans',
-        serviceName,
-        logLevel: 1 // show errors, if any
+      exporter: new OCAgentExporter({
+        serviceName: serviceName,
+        host: 'localhost',
+        port: 55678,
       }),
       propagation: new TraceContextFormat(),
       samplingRate: 1,
     });
+    tracing.tracer.registerSpanEventListener({
+      onStartSpan(span) {},
+      onEndSpan(span) {
+        span.addAttribute('service', serviceName)
+        // Datadog is picky about span names and doesn't allow
+        // https://github.com/DataDog/opencensus-go-exporter-datadog/pull/36
+        // console.log(span)
+        const method = span.attributes['http.method']
+        const route = span.attributes['http.route']
+        if (method && route) {
+          span.name = `${method}: ${route}`
+        }
+      }
+    })
   }
 }

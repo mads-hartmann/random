@@ -1,0 +1,9 @@
+log-level: DEBUG
+
+receivers:
+  opencensus:
+    address: "127.0.0.1:55677"
+
+exporters:
+  opencensus:
+    endpoint: "http://127.0.0.1:55678"

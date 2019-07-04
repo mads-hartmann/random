@@ -1,0 +1,31 @@
+version: '3'
+services:
+
+    zipkin:
+      image: openzipkin/zipkin:2.14.1
+      ports:
+        - "9411:9411"
+
+    occollector:
+      image: omnition/opencensus-collector:0.1.9
+      command: ['--config=/etc/occollector/config.yml']
+      ports:
+        - "55678:55678"
+        - "55679:55679"
+      volumes:
+        - "./etc/occollector.yml:/etc/occollector/config.yml"
+
+    datadog-agent:
+      image: datadog/agent:6.12.1
+      environment:
+        DD_APM_NON_LOCAL_TRAFFIC: "true"
+        DD_APM_ENABLED: "true"
+
+        DD_PROCESS_AGENT_ENABLED: "false"
+        DD_LOGS_ENABLED: "false"
+
+        DD_APM_ENV: "staging"
+        DD_TAGS: "env:staging"
+        DD_API_KEY: "PLACEHOLDER"
+
+

@@ -4,33 +4,29 @@ This is a proof of concept I did to experiment with OpenCensus. It consists of t
 
 I'm using Prometheus for metrics and [Zipkin] for traces because they're free and easy to get up and running.
 
+## Services
+
+Here's a quick overview of the services we'll be running:
+
+| Service | Description | Port | Endpoint |
+| - | - | - | - |
+| **Infrastructure** |  |  |  |
+| Zipkin |  UI | 9411 |http://localhost:9411 |
+| OpenCensus collector| Receiver | 55678
+| OpenCensus collector | ZPages | 55679 | http://localhost:55679/debug/tracez |
+| **Services** | | | |
+|servica-a | Node service | 8080 | http://localhost:8080 |
+|servica-b | Node service | 8081 | http://localhost:8081/sleep |
+
 ## Experiment
 
-Start Prometheus, it will be running on http://localhost:9090
+Start all the services:
 
 ```
-TODO
+docker-compose up
 ```
 
-Start Zipkin, it will be running on http://localhost:9411
-
-```
-docker run -p 9411:9411 openzipkin/zipkin:2.14.1
-```
-
-_Alternatively_ start Honeycombs Zipkin compatible proxy to send the
-traces to your Honeycomb account instead.
-
-```
-docker run \
-    -p 9411:9411 \
-    honeycombio/honeycomb-opentracing-proxy:1.109 \
-        -d proof-of-concept \
-        -k $HONEYCOMB_API_KEY \
-        --debug
-```
-
-Run the services
+Start the node services.
 
 ```
 npm install
@@ -45,30 +41,18 @@ sh/send-requests.sh
 ```
 
 Go to the Zipkin UI to check out the traces - they should appear within a minute
-http://localhost:9411/zipkin/.
-
-## TODO
-
-### Traces
-
-- [x] Create a service B and let service A invoke it.
-- [x] Get the trace context propagation to work
-- [x] README
-  - [x] Add commands to run the two node services
-  - [x] Add a shell command to hit the endpoints a few times
-  - [x] Describe how to read the traces in the UI to verify it works
-
-### Metrics
-
-- [] Add metrics to the index.js example in the service
-     Metrics aren't as important right now for us as we're mostly wanting traces right now.
-- [] README
-  - [] Add docker run commands for Prometheus
-  - [] Describe how to read the metrics in the UI to verify it works
+or two.
 
 [Zipkin]: https://zipkin.io
 
+## Exporters
 
-## Questions
+A quick note on each of the exporters that have been configured in this prototype.
 
-- How does the trace context library work? Does it patch http?
+### Datadog
+
+The way the datadog exporter works is simply that it forwards traces to the
+datadog agent you have running in your environment - so you still need to have
+that running. It needs to have APM enabled.
+
+TODO: Explain the other caveats.
