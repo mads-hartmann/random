@@ -7,12 +7,12 @@ module.exports = {
    * This must be invoked before other imports. It uses the default OpenCensus plugins
    * to monkey-patch various modules in order to automatically do context propagation.
    */
-  start: (serviceName) => {
+  start: (serviceName, port) => {
     tracing.start({
       exporter: new OCAgentExporter({
         serviceName: serviceName,
         host: 'localhost',
-        port: 55678,
+        port: port,
       }),
       propagation: new TraceContextFormat(),
       samplingRate: 1,

@@ -3,20 +3,39 @@ services:
 
     zipkin:
       image: openzipkin/zipkin:2.14.1
+      logging:
+        driver: none
       ports:
         - "9411:9411"
 
-    occollector:
+    occollector-service-b:
+      # For datadog service_name to work, I've built a local copy of the occollector
+      # with a bugfix.
+      # image: occollector:latest
       image: omnition/opencensus-collector:0.1.9
       command: ['--config=/etc/occollector/config.yml']
       ports:
         - "55678:55678"
         - "55679:55679"
       volumes:
-        - "./etc/occollector.yml:/etc/occollector/config.yml"
+        - "./etc/occollector-service-b.yml:/etc/occollector/config.yml"
+
+    ocagent-service-a:
+      # For datadog service_name to work, I've built a local copy of the ocagent
+      # with a bugfix.
+      # image: ocagent:latest
+      image: omnition/opencensus-agent:0.1.9
+      command: ['--config=/etc/ocagent/config.yml']
+      ports:
+        - "55676:55676"
+        - "55677:55677"
+      volumes:
+        - "./etc/ocagent-service-a.yml:/etc/ocagent/config.yml"
 
     datadog-agent:
       image: datadog/agent:6.12.1
+      logging:
+        driver: none
       environment:
         DD_APM_NON_LOCAL_TRAFFIC: "true"
         DD_APM_ENABLED: "true"

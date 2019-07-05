@@ -1,8 +1,9 @@
 # Observability with OpenCensus
 
-This is a proof of concept I did to experiment with OpenCensus. It consists of two tiny node services where one depends on the other.
+This is an experiment I did while researching various observability tools so we
+could decide on which tools to adopt.
 
-I'm using Prometheus for metrics and [Zipkin] for traces because they're free and easy to get up and running.
+**caveat:** Due to a limitation/bug in the jaeger and datadog exporters this example is running an agent/collector per service - the bug causes them to drop the service name you've specified in your application and will instead show up as *opencensus-app* which isn't very helpful when you're trying to debug performance issues with your services. In the example I'm running one collector and one agent - the collector could just as well have been an agent but I wanted to see the collector in action as well.
 
 ## Services
 
@@ -12,11 +13,14 @@ Here's a quick overview of the services we'll be running:
 | - | - | - | - |
 | **Infrastructure** |  |  |  |
 | Zipkin |  UI | 9411 |http://localhost:9411 |
-| OpenCensus collector| Receiver | 55678
-| OpenCensus collector | ZPages | 55679 | http://localhost:55679/debug/tracez |
-| **Services** | | | |
+| **Service a** | | | |
 |servica-a | Node service | 8080 | http://localhost:8080 |
+| OpenCensus agent| Receiver | 55676 |
+| OpenCensus agent | ZPages | 55677 | http://localhost:55677/debug/tracez |
+| **Service b** | | | |
 |servica-b | Node service | 8081 | http://localhost:8081/sleep |
+| OpenCensus collector| Receiver | 55678 |
+| OpenCensus collector | ZPages | 55679 | http://localhost:55679/debug/tracez |
 
 ## Experiment
 
@@ -55,4 +59,4 @@ The way the datadog exporter works is simply that it forwards traces to the
 datadog agent you have running in your environment - so you still need to have
 that running. It needs to have APM enabled.
 
-TODO: Explain the other caveats.
+Here's the [issue](https://github.com/census-instrumentation/opencensus-service/issues/551#issuecomment-493143844) that explains the need for `service_name`.

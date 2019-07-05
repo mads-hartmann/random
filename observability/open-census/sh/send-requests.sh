@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-for i in {0..1}
+for i in {0..20}
 do
     echo "Reuqest $i"
     curl http://localhost:8080

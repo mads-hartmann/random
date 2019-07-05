@@ -1,17 +1,17 @@
 log-level: DEBUG
 
-zpages:
-    port: 55679
+zpages-http-port: 55679
 
 receivers:
   opencensus:
-    address: "127.0.0.1:55678"
+    port: 55678
 
 exporters:
   zipkin:
     endpoint: "http://zipkin:9411/api/v2/spans"
 
   datadog:
+    service_name: "service-b"
     namespace: "occollector"
     trace_addr: "datadog-agent:8126"
     enable_tracing: true

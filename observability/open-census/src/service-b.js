@@ -1,6 +1,6 @@
 // Automatically instruments using the default OpenCensus plugins.
 const instrument = require('./instrument');
-instrument.start('service-b');
+instrument.start('service-b', 55678);
 
 const express = require('express');
 const http = require('http');
