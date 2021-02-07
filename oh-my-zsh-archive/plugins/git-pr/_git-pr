@@ -1,0 +1,19 @@
+#compdef git-pr
+#description Open the pull request preview view on Github
+
+_git-pr() {
+
+    local -a remote_branches
+
+    remote_branches=$( \
+        git branch -r \
+        | grep -v 'HEAD' \
+        | sed s/origin\\///g \
+        | while read -r branch; do echo -n "$branch "; done \
+    )
+
+    _arguments \
+        ':Remote branch:($(echo ${remote_branches}))'
+}
+
+_git-pr "$@"

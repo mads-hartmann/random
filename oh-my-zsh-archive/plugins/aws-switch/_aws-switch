@@ -1,0 +1,18 @@
+#compdef aws-switch
+#description Switch the AWS profile
+
+_aws-switch() {
+
+    local -a aws_profiles
+
+    aws_profiles=$( \
+        grep '\[' ~/.aws/credentials \
+        | awk '{sub(/]/, "", $2); print $2}' \
+        | while read -r profile; do echo -n "$profile "; done \
+    )
+
+    _arguments \
+        ':Aws profile:($(echo ${aws_profiles}) clear)'
+}
+
+_aws-switch "$@"

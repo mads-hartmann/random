@@ -1,0 +1,8 @@
+#compdef _iterm-theme iterm-theme
+#description Switch between iTerm2 profiles
+
+_iterm-Xtheme() {
+    local themes="Light Default Danger"
+    _arguments \
+        ':iTerm2 Profile:($(echo ${themes}))'
+}

@@ -1,0 +1,8 @@
+#compdef _reload-function reload-function
+#description Reload a ZSH function
+
+function _reload-function {
+    local function_names=$(print -l ${(ok)functions})
+    _arguments -C \
+        "1:function:(${function_names})"
+}
