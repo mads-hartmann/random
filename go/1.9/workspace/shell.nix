@@ -3,8 +3,6 @@ let
 in
 nixpkgs.mkShell {
   nativeBuildInputs = [
-    nixpkgs.man-db
-    nixpkgs.less
     nixpkgs.go_1_19
   ];
 
