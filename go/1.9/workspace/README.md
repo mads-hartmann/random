@@ -50,6 +50,9 @@ cd ..
 # Show that it works
 go run example.com/hello
 HELLO
+
+# Building
+go build -o hello-caps example.com/hello
 ```
 
 To make vscode happy, the go.work file has to be in the root, so in Gitpod I'd have to `code .` in this folder `random/go/1.9/workspace` but then it works nicely.
