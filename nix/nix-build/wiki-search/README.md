@@ -1,7 +1,4 @@
-TODO: Trying to create a nix-build example which is just a bash script that has a dependency on curl and jq.
-
-Was following this guide but there might be better ones: https://nix-tutorial.gitlabpages.inria.fr/nix-tutorial/first-package.html
-
+TODO: Using https://www.sam.today/blog/creating-a-super-simple-derivation-learning-nix-pt-3/
 
 TODO: It doesn't build yet
 

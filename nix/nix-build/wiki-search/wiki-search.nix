@@ -1,21 +1,14 @@
-{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/e179d1e57ad07f1294dcc29ad5283b214a6ae21e.tar.gz") {}
-}:
-pkgs.stdenv.mkDerivation rec {
-  pname = "wiki-search";
-  version = "0.0.1";
-
+with import <nixpkgs> {};
+let 
+  script = writeShellScriptBin "wiki-search" ''
+    set -euo pipefail
+    query="$${1}"
+    ${curl}/bin/curl "https://en.wikipedia.org/w/rest.php/v1/search/page?q=$${query}&limit=1" --silent \
+    | ${jq}/bin/jq '.'
+  '';
+in stdenv.mkDerivation rec {
+  name = "wiki-search";
   buildInputs = [
-    pkgs.jq
+    script
   ];
-
-  configurePhase = ''
-  '';
-
-  buildPhase = ''
-  '';
-
-  installPhase = ''
-    mkdir -p $out/bin
-    mv wiki-search.sh $out/bin/wiki-search
-  '';
 }
