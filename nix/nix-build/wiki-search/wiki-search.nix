@@ -1,14 +1,16 @@
 with import <nixpkgs> {};
 let 
-  script = writeShellScriptBin "wiki-search" ''
-    set -euo pipefail
-    query="$${1}"
-    ${curl}/bin/curl "https://en.wikipedia.org/w/rest.php/v1/search/page?q=$${query}&limit=1" --silent \
-    | ${jq}/bin/jq '.'
-  '';
-in stdenv.mkDerivation rec {
-  name = "wiki-search";
+  my-name = "wiki-search";
+  my-src = builtins.readFile ./wiki-search.sh;
+  my-script = (pkgs.writeScriptBin my-name my-src).overrideAttrs(old: {
+    buildCommand = "${old.buildCommand}\n patchShebangs $out";
+  });
+  my-build-inputs = with pkgs; [ jq curl ];
+in pkgs.symlinkJoin {
+  name = my-name;
+  paths = [ my-script ] ++ my-build-inputs;
   buildInputs = [
-    script
+    makeWrapper
   ];
+  postBuild = "wrapProgram $out/bin/${my-name} --prefix PATH : $out/bin";
 }
