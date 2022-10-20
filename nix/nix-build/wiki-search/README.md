@@ -8,9 +8,11 @@ Inspect the result
 ls -al result/bin
 ```
 
-TODO:
-- Add a nix-shell example which uses the packages and show that wiki-search is available as a "standalone binary"
-
 ```sh
+nix-shell shell-usage-example.nix
 
+which wiki-search
+/nix/store/w02nnahjrz1z5nhgv2wnprpi5rj1iaps-wiki-search/
+
+wiki-search nix
 ```
