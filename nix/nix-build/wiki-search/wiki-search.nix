@@ -1,16 +1,16 @@
 with import <nixpkgs> {};
 let 
-  my-name = "wiki-search";
-  my-src = builtins.readFile ./wiki-search.sh;
-  my-script = (pkgs.writeScriptBin my-name my-src).overrideAttrs(old: {
-    buildCommand = "${old.buildCommand}\n patchShebangs $out";
-  });
-  my-build-inputs = with pkgs; [ jq curl ];
+  script = rec {
+    name = "wiki-search";
+    src = builtins.readFile ./wiki-search.sh;
+    runtimeInputs = [ pkgs.jq pkgs.curl ];
+    bin = (pkgs.writeScriptBin name src).overrideAttrs(old: {
+      buildCommand = "${old.buildCommand}\n patchShebangs $out";
+    });
+  };
 in pkgs.symlinkJoin {
-  name = my-name;
-  paths = [ my-script ] ++ my-build-inputs;
-  buildInputs = [
-    makeWrapper
-  ];
-  postBuild = "wrapProgram $out/bin/${my-name} --prefix PATH : $out/bin";
+  name = script.name;
+  paths = [ script.bin ] ++ script.runtimeInputs;
+  buildInputs = [ makeWrapper ];
+  postBuild = "wrapProgram $out/bin/${script.name} --prefix PATH : $out/bin";
 }
