@@ -1,4 +1,3 @@
-
 let
   nixpkgs = import <nixpkgs> {};
   repo = builtins.fetchGit {
@@ -12,7 +11,5 @@ nixpkgs.mkShell {
   nativeBuildInputs = [
     wiki-search
   ];
-
-  shellHook = ''
-  '';
+  shellHook = '';
 }
