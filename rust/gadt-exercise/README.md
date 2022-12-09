@@ -19,8 +19,7 @@ devenv init
 
 ```
 devenv shell
-rustc src/main.rs
-./main
+rustc src/main.rs && ./main
 ```
 
 ## Relevant resources
