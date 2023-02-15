@@ -10,6 +10,24 @@ I thought I would try to use OpenAIs models to
 
 ```sh
 npm install
-export OPENAI_API_KEY=...
-node <script> # completion.js or classification.js
+
+# Set the env vars (look in 1password under the respective sites)
+export OPENAI_API_KEY=""
+export NOTION_TOKEN=""
+export NOTION_DATABASE_ID=""
+
+# For the node example scripts
+node <script.js>
+
+# For the TS scripts
+npm run build
+node dist/<script.js>
+
+# If you want to debug.
+#
+#   1. add debugger; statement
+#   2. run with --inspect-brk (see below)
+#   3. Run the VSCode command "Debug: Attach to Node Process"
+#
+node --inspect-brk dist/<script.js>
 ```

@@ -1,5 +1,5 @@
 //
-// Just a basic example taken from the docs and modified slightly.
+// Just a basic example taken from the docs and modified slightly
 //
 
 import { Configuration, OpenAIApi } from "openai";
