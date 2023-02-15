@@ -12,6 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "@notionhq/client": "^2.2.3",
-    "openai": "^3.1.0"
+    "got": "^12.5.3",
+    "openai": "^3.1.0",
+    "sqlite3": "^5.1.4"
+  },
+  "devDependencies": {
+    "@types/sqlite3": "^3.1.8"
   }
 }

@@ -31,3 +31,26 @@ node dist/<script.js>
 #
 node --inspect-brk dist/<script.js>
 ```
+
+## Interacting with the SQLite DB
+
+For ad-hoc queries and running migraitons.
+
+```sh
+sqlite3 data/links.db
+```
+
+The schema is manually updated below whenever changed
+
+```
+CREATE TABLE links (
+    title TEXT,
+    link TEXT,
+    topics_json TEXT,
+    kind_json TEXT,
+    scale NUMBER,
+    author_json TEXT,
+    notion_id TEXT,
+    notion_url TEXT
+);
+```

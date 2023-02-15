@@ -3,6 +3,8 @@
 //
 
 import { Client } from "@notionhq/client";
+import got from "got";
+import sqlite from "sqlite3";
 
 type Select = {
   id: string;
@@ -25,7 +27,7 @@ type Link = {
   notionMetadata: NotionMetadata;
 };
 
-class LinkDB {
+class NotionLinkDB {
   private notion: Client;
   private databaseID: string;
   constructor(token: string, databaseID: string) {
@@ -103,12 +105,40 @@ class LinkDB {
   }
 }
 
-const db = new LinkDB(
+const notionDB = new NotionLinkDB(
   process.env.NOTION_TOKEN as string,
   process.env.NOTION_DATABASE_ID as string
 );
 
-const list = await db.list();
+const s = sqlite.verbose();
+const sqliteDB = new s.Database("data/links.db");
 
-// console.log(list);
-console.log(list.length);
+const list = await notionDB.list();
+
+sqliteDB.serialize(() => {
+  const stmt = sqliteDB.prepare(`
+    INSERT INTO links (title, link, topics_json, kind_json, scale, author_json, notion_id, notion_url)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+  list.forEach((link: Link) => {
+    stmt.run(
+      link.title,
+      link.link,
+      JSON.stringify(link.topics),
+      JSON.stringify(link.kind),
+      link.scale,
+      JSON.stringify(link.author),
+      link.notionMetadata.id,
+      link.notionMetadata.url
+    );
+  });
+  stmt.finalize();
+});
+
+// TODO:
+// - Added "read at" to the db
+// - Add HTML content to the DB (should be added by another script)
+// - Add OpenAI embeddings to the DB (should be added by another script)
+//
+
+sqliteDB.close();

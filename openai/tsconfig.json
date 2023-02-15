@@ -4,7 +4,9 @@
     "target": "es2022",
     "outDir": "dist",
     "skipLibCheck": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    // Needed to use sqlite3 library
+    "esModuleInterop": true
   },
   "include": ["*.ts"],
   "exclude": ["node_modules"]
